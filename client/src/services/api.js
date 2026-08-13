@@ -12,4 +12,15 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+// Safeguard against HTML responses (Vercel SPA rewrite fallback)
+api.interceptors.response.use(
+  (response) => {
+    if (typeof response.data === "string" && response.data.trim().startsWith("<")) {
+      return Promise.reject(new Error("HTML response received instead of API JSON"));
+    }
+    return response;
+  },
+  (error) => Promise.reject(error)
+);
+
 export default api;
