@@ -17,6 +17,9 @@ import {
   TrendingUp,
   Search,
   PlusCircle,
+  Layers,
+  DollarSign,
+  FileCode2,
 } from "lucide-react";
 
 export default function Navbar() {
