@@ -125,6 +125,96 @@ const DEFAULT_FEATURED_JOBS = [
   },
 ];
 
+const LIVE_ACTIVITIES = [
+  "⚡ Global Match Engine: Rahul S. scored 96% AI Precision Match for Staff Architect Role",
+  "💼 Priya M. initiated automated Google Calendar & Meet link for Senior Full Stack position",
+  "🤖 ATS Parser Processed 5,200+ Resumes with 99.8% semantic extraction accuracy",
+  "🔥 Trending Global Listing: Principal Cloud DevOps Lead (USD $140,000 - $180,000 / ₹35 LPA)",
+  "🎉 Verified Recruiter Hiring Velocity reached record high of 4.2x efficiency",
+];
+
+const CATEGORIES = [
+  { name: "All", label: "All Global Roles", icon: Layers, keywords: [] },
+  { name: "Frontend", label: "Frontend", icon: Cpu, keywords: ["frontend", "react", "vue", "ui", "javascript", "web", "developer", "engineer", "css"] },
+  { name: "Backend", label: "Backend", icon: Building2, keywords: ["backend", "node", "python", "java", "api", "express", "server", "engineer", "django", "spring"] },
+  { name: "Full Stack", label: "Full Stack", icon: Zap, keywords: ["full stack", "fullstack", "mern", "developer", "engineer"] },
+  { name: "Cloud & DevOps", label: "Cloud & DevOps", icon: Globe2, keywords: ["cloud", "devops", "aws", "docker", "kubernetes", "architect", "sre", "security"] },
+];
+
+const TOP_COMPANIES = [
+  { name: "Meta / Instagram", logo: "M", rating: "4.9 ★", activeJobs: "14 Positions", verified: true },
+  { name: "Uber Infrastructure", logo: "U", rating: "4.8 ★", activeJobs: "22 Positions", verified: true },
+  { name: "OpenAI Platform Partner", logo: "O", rating: "5.0 ★", activeJobs: "18 Positions", verified: true },
+  { name: "Amazon Web Services", logo: "A", rating: "4.9 ★", activeJobs: "35 Positions", verified: true },
+  { name: "TechCorp Global", logo: "T", rating: "4.7 ★", activeJobs: "12 Positions", verified: true },
+];
+
+const ADVANCED_PLATFORM_FEATURES = [
+  {
+    title: "Live Mock Video Interview Studio",
+    desc: "Camera & mic video studio with real-time speech transcription, WPM pace HUD, and instant 4-pillar rubric grading.",
+    icon: Video,
+    color: "from-amber-500 to-orange-600",
+    link: "/candidate/live-interview",
+  },
+  {
+    title: "Engineering Career & Compensation Roadmap",
+    desc: "Interactive career leveling ladder (L1-L5), salary benchmarks across INR & USD, and promotion milestone checklists.",
+    icon: TrendingUp,
+    color: "from-indigo-500 to-purple-600",
+    link: "/candidate/career-roadmap",
+  },
+  {
+    title: "Recruiter Talent Discovery Radar",
+    desc: "Direct candidate scouting by skill matrix, AI match fit, verified badges, and 1-click Google Calendar invites.",
+    icon: Users,
+    color: "from-purple-500 to-pink-600",
+    link: "/recruiter/talent-pool",
+  },
+  {
+    title: "AI ATS Resume Parser & Score",
+    desc: "Instant 0-100% precision match score with missing skills matrix & AI tailored Cover Letter.",
+    icon: Sparkles,
+    color: "from-indigo-600 to-blue-600",
+    link: "/jobs/demo-job-1",
+  },
+  {
+    title: "Real-Time Socket.io Chat Workspace",
+    desc: "Direct candidate-recruiter messaging with 1-click Google Meet video room launcher.",
+    icon: MessageSquare,
+    color: "from-emerald-500 to-teal-600",
+    link: "/chat/cand-demo-1",
+  },
+  {
+    title: "Executive Smart Resume Studio",
+    desc: "Live PDF resume preview builder with 1-click export and ATS templates.",
+    icon: FileCode2,
+    color: "from-amber-500 to-orange-600",
+    link: "/candidate/resume-builder",
+  },
+  {
+    title: "AI English Spoken Practice Coach",
+    desc: "Practice interview spoken English from Beginner to Executive level with real-time AI voice evaluation.",
+    icon: BookOpen,
+    color: "from-blue-600 to-cyan-500",
+    link: "/candidate/english-coach",
+  },
+  {
+    title: "AI Live Technical Coding Sandbox",
+    desc: "Solve Meta/Google/Uber LeetCode data structure problems with instant AI execution & complexity auditor.",
+    icon: Terminal,
+    color: "from-emerald-600 to-teal-500",
+    link: "/candidate/coding-sandbox",
+  },
+  {
+    title: "AI Verifiable Skill Certificate Badge",
+    desc: "Earn AI-Verified skill credential badges displayed on recruiter candidate pipelines.",
+    icon: ShieldCheck,
+    color: "from-purple-600 to-indigo-600",
+    link: "/candidate/certification",
+  },
+];
+
 export default function Home() {
   const [jobs, setJobs] = useState(DEFAULT_FEATURED_JOBS);
   const [q, setQ] = useState("");
@@ -132,105 +222,18 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [showSalaryModal, setShowSalaryModal] = useState(false);
   const [activeCategory, setActiveCategory] = useState("All");
-
-  // Live Ticker News
   const [tickerIndex, setTickerIndex] = useState(0);
-  const liveActivities = [
-    "⚡ Global Match Engine: Rahul S. scored 96% AI Precision Match for Staff Architect Role",
-    "💼 Priya M. initiated automated Google Calendar & Meet link for Senior Full Stack position",
-    "🤖 ATS Parser Processed 5,200+ Resumes with 99.8% semantic extraction accuracy",
-    "🔥 Trending Global Listing: Principal Cloud DevOps Lead (USD $140,000 - $180,000 / ₹35 LPA)",
-    "🎉 Verified Recruiter Hiring Velocity reached record high of 4.2x efficiency",
-  ];
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTickerIndex((prev) => (prev + 1) % liveActivities.length);
+      setTickerIndex((prev) => (prev + 1) % LIVE_ACTIVITIES.length);
     }, 3800);
     return () => clearInterval(timer);
   }, []);
 
-  const categories = [
-    { name: "All", label: "All Global Roles", icon: Layers, keywords: [] },
-    { name: "Frontend", label: "Frontend", icon: Cpu, keywords: ["frontend", "react", "vue", "ui", "javascript", "web", "developer", "engineer", "css"] },
-    { name: "Backend", label: "Backend", icon: Building2, keywords: ["backend", "node", "python", "java", "api", "express", "server", "engineer", "django", "spring"] },
-    { name: "Full Stack", label: "Full Stack", icon: Zap, keywords: ["full stack", "fullstack", "mern", "developer", "engineer"] },
-    { name: "Cloud & DevOps", label: "Cloud & DevOps", icon: Globe2, keywords: ["cloud", "devops", "aws", "docker", "kubernetes", "architect", "sre", "security"] },
-  ];
-
-  const topCompanies = [
-    { name: "Meta / Instagram", logo: "M", rating: "4.9 ★", activeJobs: "14 Positions", verified: true },
-    { name: "Uber Infrastructure", logo: "U", rating: "4.8 ★", activeJobs: "22 Positions", verified: true },
-    { name: "OpenAI Platform Partner", logo: "O", rating: "5.0 ★", activeJobs: "18 Positions", verified: true },
-    { name: "Amazon Web Services", logo: "A", rating: "4.9 ★", activeJobs: "35 Positions", verified: true },
-    { name: "TechCorp Global", logo: "T", rating: "4.7 ★", activeJobs: "12 Positions", verified: true },
-  ];
-
-  const advancedPlatformFeatures = [
-    {
-      title: "Live Mock Video Interview Studio",
-      desc: "Camera & mic video studio with real-time speech transcription, WPM pace HUD, and instant 4-pillar rubric grading.",
-      icon: Video,
-      color: "from-amber-500 to-orange-600",
-      link: "/candidate/live-interview",
-    },
-    {
-      title: "Engineering Career & Compensation Roadmap",
-      desc: "Interactive career leveling ladder (L1-L5), salary benchmarks across INR & USD, and promotion milestone checklists.",
-      icon: TrendingUp,
-      color: "from-indigo-500 to-purple-600",
-      link: "/candidate/career-roadmap",
-    },
-    {
-      title: "Recruiter Talent Discovery Radar",
-      desc: "Direct candidate scouting by skill matrix, AI match fit, verified badges, and 1-click Google Calendar invites.",
-      icon: Users,
-      color: "from-purple-500 to-pink-600",
-      link: "/recruiter/talent-pool",
-    },
-    {
-      title: "AI ATS Resume Parser & Score",
-      desc: "Instant 0-100% precision match score with missing skills matrix & AI tailored Cover Letter.",
-      icon: Sparkles,
-      color: "from-indigo-600 to-blue-600",
-      link: "/jobs/mock-1",
-    },
-    {
-      title: "Real-Time Socket.io Chat Workspace",
-      desc: "Direct candidate-recruiter messaging with 1-click Google Meet video room launcher.",
-      icon: MessageSquare,
-      color: "from-emerald-500 to-teal-600",
-      link: "/chat/cand-1",
-    },
-    {
-      title: "Executive Smart Resume Studio",
-      desc: "Live PDF resume preview builder with 1-click export and ATS templates.",
-      icon: FileCode2,
-      color: "from-amber-500 to-orange-600",
-      link: "/candidate/resume-builder",
-    },
-    {
-      title: "AI English Spoken Practice Coach",
-      desc: "Practice interview spoken English from Beginner to Executive level with real-time AI voice evaluation.",
-      icon: BookOpen,
-      color: "from-blue-600 to-cyan-500",
-      link: "/candidate/english-coach",
-    },
-    {
-      title: "AI Live Technical Coding Sandbox",
-      desc: "Solve Meta/Google/Uber LeetCode data structure problems with instant AI execution & complexity auditor.",
-      icon: Terminal,
-      color: "from-emerald-600 to-teal-500",
-      link: "/candidate/coding-sandbox",
-    },
-    {
-      title: "AI Verifiable Skill Certificate Badge",
-      desc: "Earn AI-Verified skill credential badges displayed on recruiter candidate pipelines.",
-      icon: ShieldCheck,
-      color: "from-purple-600 to-indigo-600",
-      link: "/candidate/certification",
-    },
-  ];
+  const categories = CATEGORIES;
+  const topCompanies = TOP_COMPANIES;
+  const advancedPlatformFeatures = ADVANCED_PLATFORM_FEATURES;
 
   const fetchJobs = async () => {
     setLoading(true);

@@ -1,10 +1,10 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from "react";
 import api from "../services/api";
 import { connectSocket, disconnectSocket } from "../services/socket";
 
 const AuthContext = createContext(null);
 
-const DEMO_USERS = {
+export const DEMO_USERS = {
   candidate: {
     _id: "cand-demo-1",
     name: "Aarav Sharma",
@@ -28,48 +28,47 @@ const DEMO_USERS = {
   },
 };
 
+const getInitialUser = () => {
+  try {
+    const saved = localStorage.getItem("hirehub_user");
+    if (saved) return JSON.parse(saved);
+  } catch (e) {
+    console.error(e);
+  }
+  return DEMO_USERS.candidate;
+};
+
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(getInitialUser);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const savedUser = localStorage.getItem("hirehub_user");
     const token = localStorage.getItem("hirehub_token");
-
-    if (savedUser) {
-      try {
-        setUser(JSON.parse(savedUser));
-      } catch (e) {
-        console.error(e);
-      }
-    }
-
-    if (token && token.startsWith("demo_token_")) {
-      setLoading(false);
+    if (!token) {
+      localStorage.setItem("hirehub_token", "demo_token_candidate");
+      localStorage.setItem("hirehub_user", JSON.stringify(DEMO_USERS.candidate));
       return;
     }
 
-    if (!token) {
-      setLoading(false);
+    if (token.startsWith("demo_token_")) {
       return;
     }
 
     api
       .get("/auth/me")
       .then((res) => {
-        setUser(res.data);
-        localStorage.setItem("hirehub_user", JSON.stringify(res.data));
-        connectSocket(token);
-      })
-      .catch(() => {
-        if (!savedUser) {
-          localStorage.removeItem("hirehub_token");
+        if (res.data && res.data._id) {
+          setUser(res.data);
+          localStorage.setItem("hirehub_user", JSON.stringify(res.data));
+          connectSocket(token);
         }
       })
-      .finally(() => setLoading(false));
+      .catch(() => {
+        // Silently preserve local session
+      });
   }, []);
 
-  const login = async (email, password) => {
+  const login = useCallback(async (email, password) => {
     try {
       const res = await api.post("/auth/login", { email, password });
       localStorage.setItem("hirehub_token", res.data.token);
@@ -78,32 +77,25 @@ export function AuthProvider({ children }) {
       connectSocket(res.data.token);
       return res.data.user;
     } catch (err) {
-      // Fallback demo login if backend is unreachable
-      const lower = email.toLowerCase();
+      const lower = (email || "").toLowerCase();
       const role = lower.includes("recruiter") ? "recruiter" : lower.includes("admin") ? "admin" : "candidate";
-      const demoUser = {
-        _id: `cand-${Date.now()}`,
-        name: email.split("@")[0] || "Demo User",
-        email,
-        role,
-        skills: ["React", "Node.js", "TypeScript", "AWS"],
-      };
+      const demoUser = DEMO_USERS[role] || DEMO_USERS.candidate;
       localStorage.setItem("hirehub_token", `demo_token_${role}`);
       localStorage.setItem("hirehub_user", JSON.stringify(demoUser));
       setUser(demoUser);
       return demoUser;
     }
-  };
+  }, []);
 
-  const loginAsDemo = (role = "candidate") => {
+  const loginAsDemo = useCallback((role = "candidate") => {
     const demoUser = DEMO_USERS[role] || DEMO_USERS.candidate;
     localStorage.setItem("hirehub_token", `demo_token_${role}`);
     localStorage.setItem("hirehub_user", JSON.stringify(demoUser));
     setUser(demoUser);
     return demoUser;
-  };
+  }, []);
 
-  const register = async (payload) => {
+  const register = useCallback(async (payload) => {
     try {
       const res = await api.post("/auth/register", payload);
       localStorage.setItem("hirehub_token", res.data.token);
@@ -124,20 +116,21 @@ export function AuthProvider({ children }) {
       setUser(demoUser);
       return demoUser;
     }
-  };
+  }, []);
 
-  const logout = () => {
+  const logout = useCallback(() => {
     localStorage.removeItem("hirehub_token");
     localStorage.removeItem("hirehub_user");
     disconnectSocket();
-    setUser(null);
-  };
+    setUser(DEMO_USERS.candidate);
+  }, []);
 
-  return (
-    <AuthContext.Provider value={{ user, loading, login, loginAsDemo, register, logout }}>
-      {children}
-    </AuthContext.Provider>
+  const value = useMemo(
+    () => ({ user, loading, login, loginAsDemo, register, logout }),
+    [user, loading, login, loginAsDemo, register, logout]
   );
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export const useAuth = () => useContext(AuthContext);
