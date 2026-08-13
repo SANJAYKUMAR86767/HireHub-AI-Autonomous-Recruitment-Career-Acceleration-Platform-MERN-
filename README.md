@@ -1,4 +1,4 @@
-# 🚀 HireHub AI — Autonomous Recruitment & Career Acceleration Platform
+# 🚀 HireHub AI — Autonomous Recruitment & Career Acceleration Ecosystem
 
 <div align="center">
 
@@ -7,9 +7,10 @@
 
 [![React](https://img.shields.io/badge/Frontend-React%2018%20%7C%20Vite-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev/)
 [![NodeJS](https://img.shields.io/badge/Backend-Node.js%20%7C%20Express%204-339933?style=flat-square&logo=node.js&logoColor=white)](https://nodejs.org/)
-[![MongoDB](https://img.shields.io/badge/Database-MongoDB%20%7C%20Mongoose-47A248?style=flat-square&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![MongoDB](https://img.shields.io/badge/Database-MongoDB%20%7C%20Atlas-47A248?style=flat-square&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
 [![TailwindCSS](https://img.shields.io/badge/Styling-Tailwind%20CSS%203-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![Socket.IO](https://img.shields.io/badge/RealTime-Socket.IO-010101?style=flat-square&logo=socket.io&logoColor=white)](https://socket.io/)
+[![Vercel](https://img.shields.io/badge/Deployment-Vercel%20Edge-000000?style=flat-square&logo=vercel&logoColor=white)](https://hire-hub-ai-autonomous-recruitment.vercel.app/)
 [![Docker](https://img.shields.io/badge/Container-Docker%20%7C%20Compose-2496ED?style=flat-square&logo=docker&logoColor=white)](https://www.docker.com/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
 
@@ -17,143 +18,136 @@
   <strong>An enterprise-grade, autonomous recruitment ecosystem featuring live video AI mock studios, compensation & offer analyzers, distributed system design whiteboards, ATS resume deep auditing, recruiter talent sourcing radars, and verifiable cryptographic credentials.</strong>
 </p>
 
-[Explore Features](#-key-workspaces--ai-studios) • [Tech Stack](#-technologies--languages-used) • [Architecture](#-system-architecture) • [Getting Started](#-getting-started) • [Deployment](#-deployment-guide)
+🌐 **Live Production Link**: [https://hire-hub-ai-autonomous-recruitment.vercel.app/](https://hire-hub-ai-autonomous-recruitment.vercel.app/)
+
+[Explore Features](#-key-workspaces--ai-studios) • [Technologies & Languages Used](#-complete-technologies--languages-used) • [Architecture](#-system-architecture) • [Getting Started](#-getting-started) • [Deployment Guide](#-deployment-guide)
 
 </div>
 
 ---
 
-## ⚡ Technologies & Languages Used
+## ⚡ Complete Technologies & Languages Used
 
-| Layer | Technologies & Frameworks | Languages & Protocols |
+| Layer / Domain | Technologies, Frameworks & Libraries | Languages, Protocols & Standards |
 |---|---|---|
-| **Frontend** | React 18, Vite, Tailwind CSS, Lucide Icons, Canvas API | JavaScript (ES6+), JSX, HTML5, CSS3 |
-| **Media & AI Streaming** | WebRTC MediaStream API, Web Speech Recognition API | Client-Side Audio/Video Streams, Speech-to-Text |
-| **Backend API** | Node.js, Express.js 4, RESTful Architecture | JavaScript (Async/Await, ES Modules) |
-| **Real-Time Layer** | Socket.IO, WebSockets | Full-Duplex Bidirectional TCP Socket Events |
-| **Database & Cache** | MongoDB Atlas, Mongoose ODM, Redis (Optional) | BSON, NoSQL Aggregation, In-Memory Key-Value |
-| **Security & Auth** | JWT (JSON Web Tokens), Bcrypt.js, Helmet, CORS | Bearer Token Auth, SHA-256 Hashing |
-| **DevOps & Cloud** | Docker, Docker Compose, Render, Vercel, Cloudinary | Containerization, CI/CD YAML |
+| **Frontend Core** | React 18, Vite 5, React Router v6, React Context API | JavaScript (ES6+), JSX, HTML5 Semantic, CSS3 |
+| **Styling & UI Design** | Tailwind CSS 3, Glassmorphism, Lucide Icons, Custom CSS Grid Engine | Modern Design Tokens, HSL Dynamic Gradients, Responsive Flexbox |
+| **Media & Telemetry HUD** | WebRTC `MediaStream` API, Web Speech Recognition API, Canvas API | Client-Side Audio/Video Streams, Real-Time Speech-to-Text |
+| **Backend REST API** | Node.js (v18+), Express.js 4, RESTful JSON Architecture | Asynchronous JavaScript (Async/Await), ES Modules |
+| **Real-Time WebSockets** | Socket.IO v4, WebSockets | Full-Duplex Bidirectional TCP Socket Events |
+| **Database & Caching** | MongoDB Atlas, Mongoose ODM, Redis In-Memory Cache | BSON, NoSQL Aggregation Pipelines, TTL Cache Key-Values |
+| **Security, Auth & RBAC** | JWT (JSON Web Tokens), Bcrypt.js, Helmet, CORS, Express Rate Limit | Cryptographic Bearer Tokens, SHA-256 Hashing, Zero-Trust RBAC |
+| **Cloud & DevOps** | Vercel Edge CDN, Render Blueprint, Docker, Docker Compose | Containerization, CI/CD YAML, Single Page App (SPA) Rewrites |
+| **Testing & AST Validation** | Babel Parser (`@babel/parser`), Babel Traverse, ESLint | Abstract Syntax Tree (AST) Scope Validation |
 
 ---
 
-## 🌟 Key Workspaces & AI Studios
+## 🌟 16+ Autonomous AI Studios & Workspaces
 
-### 1. 🎥 Live AI Mock Video Interview Studio (`/candidate/live-interview`)
-* Real-time webcam and microphone streaming.
-* Live speech-to-text transcription powered by the Web Speech API.
-* Real-time telemetry HUD with **Words Per Minute (WPM)** meter and technical keyword density tracking.
-* 4-pillar rubric evaluation (Technical Depth, STAR Structure, Clarity, Relevance).
+### 1. 🤖 Autonomous AI Recruiter Agent (`/recruiter/autonomous-agent`)
+* 24/7 autonomous sourcing and engagement loop with live streaming reasoning logs in a cyberpunk terminal HUD.
+* Automatically parses candidates, scores technical fit, generates custom pitches, and queues Google Calendar invites.
 
-### 2. 💼 AI Compensation & Offer Letter Analyzer (`/candidate/offer-analyzer`)
-* Calculates **1st-Year Total Comp** vs **4-Year Annualized Average** (Base, Signing Bonus, Performance Bonus, Equity/ESOPs).
-* Computes **Monthly Post-Tax In-Hand** take-home estimates (India & US).
-* Market percentile ranking against top-tier tech benchmarks.
-* Hidden risk clause radar (clawbacks, non-competes, cliffs).
-* **1-Click AI Counter-Offer Email Generator**.
+### 2. 🎥 Live Video Body Language & Vocal Telemetry HUD (`/candidate/video-telemetry`)
+* Real-time Eye Contact Score target meter.
+* Speech Cadence (Words Per Minute) tracker with optimal 120-145 WPM pacing gauge.
+* Filler Word Counter ("um", "like", "actually") and confidence score index.
+* Built-in teleprompter script for architecture practice.
 
-### 3. 🏢 AI Company Culture DNA & Reverse Interview Engine (`/candidate/culture-analyzer`)
-* Decodes team engineering autonomy, release cadence, WLB score, code review rigor, and on-call expectations.
-* Curated **Reverse Interview Question Matrix** tailored for Hiring Managers, VPs, and Peer Engineers.
-* Detects subtle interview red flags and team toxicity warnings.
+### 3. 🎯 FAANG Engineering Leveling & Skill Matrix Gap Analyzer (`/candidate/skill-matrix-gap`)
+* Multi-dimensional competency heatmap comparing candidates against L4 / L5 / L6 ladders.
+* 90-Day Sprint Action Plan for cross-system design and org-wide promotion readiness.
 
-### 4. 🎥 60-Second Video Resume Elevator Pitch Studio (`/candidate/video-pitch`)
-* Live video recording with built-in **Teleprompter Script HUD** and countdown timer.
-* Evaluates hook strength, speaking cadence, and quantified achievements.
-* Generates a shareable video pitch link for recruiter talent radar profiles.
+### 4. ✉️ 1-Click AI LinkedIn InMail & Cold Pitch Generator (`/candidate/inmail-pitch`)
+* Generates 3 high-converting cold pitches: Direct to Founder DM, Recruiter InMail Hook, and Peer Engineer Coffee Referral Request.
+* Real-time character count validator with 1-click copy.
 
-### 5. 📄 AI ATS Resume Deep Auditor & Bullet Transformer (`/candidate/resume-auditor`)
-* **5-Pillar ATS Scorecard**: Impact & Numbers, Action Verb Strength, Brevity, Structural Layout, and Keyword Density.
-* **Google XYZ Bullet Transformer**: Converts weak bullet points into 3 high-impact variations (*Metric-Driven*, *Technical Leadership*, and *Problem-Action-Result*).
+### 5. ⭐ AI Behavioral STAR Storytelling Coach (`/candidate/star-coach`)
+* Interactive behavioral question bank for Amazon Leadership Principles, Google Googliness, and Netflix High Performance.
+* Deconstructs stories into Situation, Task, Action, and Result with live AI quality scorecards.
 
-### 6. 🏗️ Interactive System Design & Architecture Playground (`/candidate/system-design-studio`)
-* Visual canvas to assemble distributed systems (CDN, Load Balancers, Redis Cache, Microservices, Kafka, Sharded DB).
-* Real-time **AI Resilience & SPOF Auditor**: Evaluates single points of failure, computes estimated QPS handling (up to 100k+ QPS), and latency grades (A+, A, B).
+### 6. 💥 Distributed Systems Chaos & Self-Healing Sandbox (`/candidate/chaos-simulator`)
+* Inject infrastructure failures (Redis outage, 150k QPS DDoS flood, database network partitions).
+* Real-time telemetry monitoring: P99 Latency HUD, Error Rate, and Circuit Breaker states.
 
-### 7. 📊 2026 Tech Stack Market Demand & Skill Swap Radar (`/candidate/tech-trends`)
-* Real-time demand score (0-100), YoY salary growth, and compensation brackets in INR/USD.
-* Skill Migration & Career Transition Fast-Tracks (e.g. Node.js -> Go, Python -> GenAI / LangChain) with estimated time to master and average salary lift.
+### 7. 🔍 AI Boolean Search & Talent X-Ray Sourcing (`/recruiter/boolean-generator`)
+* Transforms natural language hiring mandates into enterprise Boolean strings with 1-click search launchers across LinkedIn & GitHub.
 
-### 8. 🎯 Recruiter Autonomous Talent Radar (`/recruiter/talent-pool`)
-* Candidate sourcing by tech skills, verified badges, and AI match compatibility scores.
-* 1-Click Google Calendar & Jitsi video interview scheduling.
+### 8. 🛡️ AI Blind Resume Anonymizer & DEI Bias Shield (`/recruiter/blind-resume`)
+* Masks demographic tags while spotlighting pure verified technical achievements.
 
-### 9. ✉️ Recruiter AI Cold Outreach Sequence Generator (`/recruiter/outreach-generator`)
-* Generates a 3-stage candidate headhunting sequence (Initial Hook, Value-Add Engineering Follow-up, Final Check-in).
+### 9. 🤖 AI Salary & Offer Negotiation Studio (`/candidate/salary-negotiator`)
+* Interactive chat simulation with 3 HR personas and total CTC calculators.
 
-### 10. ✍️ Recruiter AI Job Description Builder & Inclusivity Bias Shield (`/recruiter/post-job`)
-* 1-Click job description generator with Inclusivity & Bias Audit score (0-100) and auto-suggested salary ranges.
+### 10. ⚡ AI Codebase & Portfolio Seniority Auditor (`/candidate/portfolio-ranker`)
+* Audits public GitHub repositories for architecture and clean code, generating Google XYZ resume bullets.
 
-### 11. 🏅 Verifiable AI Technical Certificates (`/candidate/certification`)
-* High-resolution official certificate generator with unique cryptographic credential IDs, issue dates, and 1-click PDF export & LinkedIn sharing.
+### 11. 🌍 Global Purchasing Power (PPP) & Tax Salary Normalizer (`/candidate/global-compensation`)
+* Real-world PPP normalizer comparing tech salaries across India, US, UK, Germany, and UAE.
 
-### 12. 📈 Engineering Career Leveling & Compensation Roadmap (`/candidate/career-roadmap`)
-* Leveling ladder (L1 to L5), INR/USD currency converter, tech stack requirements, and promotion checklist.
+### 12. 🎯 Recruiter AI Multi-Candidate Batch Screener (`/recruiter/batch-screener`)
+* Side-by-side comparison radar with automated Green Flag & Red Flag detection.
+
+### 13. 🎥 Live AI Mock Video Interview Studio (`/candidate/live-interview`)
+* Real-time webcam and microphone streaming with live speech-to-text transcription.
+* Words Per Minute (WPM) telemetry HUD and 4-pillar rubric grading.
+
+### 14. 💼 AI Compensation & Offer Letter Analyzer (`/candidate/offer-analyzer`)
+* Computes 1st-Year Total Comp vs 4-Year Annualized Average and post-tax in-hand estimates.
+
+### 15. 🏗️ Interactive System Design Playground (`/candidate/system-design-studio`)
+* Visual canvas to assemble distributed systems (CDN, Load Balancers, Redis, Kafka, Sharded DB) with AI SPOF audit.
+
+### 16. 🚀 Floating 1-Click Demo Role Switcher
+* Instant 1-click toggle between **Candidate**, **Recruiter Studio**, and **Admin Suite** without requiring credentials.
 
 ---
 
 ## 🏛️ System Architecture
 
 ```
-                                  ┌────────────────────────┐
-                                  │   React 18 + Vite SPA  │
-                                  │   (Tailwind CSS HUD)   │
-                                  └───────────┬────────────┘
-                                              │
-                     ┌────────────────────────┴────────────────────────┐
-                     │                                                 │
-          HTTPS / REST API Requests                            Full-Duplex WebSockets
-                     │                                                 │
-                     ▼                                                 ▼
-        ┌─────────────────────────┐                       ┌─────────────────────────┐
-        │  Express.js API Router  │                       │  Socket.IO Chat Server  │
-        │  (Auth, Jobs, AI Hub)   │                       │  (Real-Time Messaging)  │
-        └────────────┬────────────┘                       └────────────┬────────────┘
-                     │                                                 │
-      ┌──────────────┴──────────────┐                                  │
-      ▼                             ▼                                  │
-┌──────────────┐             ┌──────────────┐                          │
-│ MongoDB      │             │ Redis Cache  │                          │
-│ Atlas Store  │             │ (Optional)   │                          │
-└──────────────┘             └──────────────┘                          │
-      ▲                                                                │
-      └────────────────────────────────────────────────────────────────┘
+                                   ┌────────────────────────┐
+                                   │   React 18 + Vite SPA  │
+                                   │   (Tailwind CSS HUD)   │
+                                   └───────────┬────────────┘
+                                               │
+                      ┌────────────────────────┴────────────────────────┐
+                      │                                                 │
+           HTTPS / REST API Requests                            Full-Duplex WebSockets
+                      │                                                 │
+                      ▼                                                 ▼
+         ┌─────────────────────────┐                       ┌─────────────────────────┐
+         │  Express.js API Router  │                       │  Socket.IO Chat Server  │
+         │  (Auth, Jobs, AI Hub)   │                       │  (Real-Time Messaging)  │
+         └────────────┬────────────┘                       └────────────┬────────────┘
+                      │                                                 │
+       ┌──────────────┴──────────────┐                                  │
+       ▼                             ▼                                  │
+ ┌──────────────┐             ┌──────────────┐                          │
+ │ MongoDB      │             │ Redis Cache  │                          │
+ │ Atlas Store  │             │ (Optional)   │                          │
+ └──────────────┘             └──────────────┘                          │
+       ▲                                                                │
+       └────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
 ## 🚀 Getting Started
 
-### Prerequisites
-- [Node.js](https://nodejs.org/) (v18 or higher)
-- [MongoDB](https://www.mongodb.com/) (Local instance or MongoDB Atlas URI)
-- [Git](https://git-scm.com/)
-
----
-
-### Local Installation (Without Docker)
-
-#### 1. Clone the repository:
+### Local Setup
 ```bash
+# 1. Clone the repository
 git clone https://github.com/SANJAYKUMAR86767/HireHub-AI-Autonomous-Recruitment-Career-Acceleration-Platform-MERN-.git
 cd HireHub-AI-Autonomous-Recruitment-Career-Acceleration-Platform-MERN-/hirehub
-```
 
-#### 2. Configure Backend:
-```bash
+# 2. Configure Backend
 cd server
 cp .env.example .env
 npm install
 npm run dev
-```
 
-#### 3. Create Admin Account (Optional):
-```bash
-npm run create-admin -- admin@hirehub.com yourPassword123 "Platform Admin"
-```
-
-#### 4. Configure Frontend:
-```bash
+# 3. Configure Frontend
 cd ../client
 npm install
 npm run dev
@@ -163,72 +157,7 @@ Visit **http://localhost:5173** in your browser!
 
 ---
 
-### 🐳 Run with Docker (1-Click Startup)
-
-```bash
-cd hirehub
-docker compose up --build
-```
-- **Frontend App**: `http://localhost:5173`
-- **Backend API**: `http://localhost:5000`
-- **MongoDB & Redis**: Initialized automatically inside container network.
-
----
-
-## ⚙️ Environment Configuration
-
-Create `.env` inside `hirehub/server`:
-
-```env
-PORT=5000
-MONGO_URI=mongodb://localhost:27017/hirehub
-JWT_SECRET=your_super_secret_jwt_key_here
-CLIENT_URL=http://localhost:5173
-
-# Optional Services (Safe Rule Engine Fallbacks active by default)
-ANTHROPIC_API_KEY=
-CLOUDINARY_CLOUD_NAME=
-CLOUDINARY_API_KEY=
-CLOUDINARY_API_SECRET=
-REDIS_URL=
-SMTP_HOST=
-SMTP_USER=
-SMTP_PASS=
-```
-
----
-
-## 📂 Project Structure
-
-```
-hirehub/
-├── docker-compose.yml          # Docker composition config
-├── render.yaml                 # Render backend blueprint
-├── server/                     # Express.js REST API & Socket.IO
-│   ├── config/                 # Database & Cloudinary connectors
-│   ├── controllers/            # Advanced AI, Job, Application & Auth controllers
-│   ├── middleware/             # JWT auth & Multer file upload
-│   ├── models/                 # User, Job, Application, Message Mongoose schemas
-│   ├── routes/                 # Advanced, Auth, Job, Application & Chat routers
-│   ├── sockets/                # Real-time chat socket handlers
-│   └── app.js / server.js      # Server entry points
-└── client/                     # React 18 SPA (Vite + Tailwind CSS)
-    ├── src/
-    │   ├── components/         # Navbar, AiCopilotDrawer, NotificationDropdown
-    │   ├── context/            # AuthContext & SocketContext
-    │   ├── pages/
-    │   │   ├── candidate/      # LiveVideoInterview, OfferAnalyzer, SystemDesign, etc.
-    │   │   ├── recruiter/      # TalentRadar, PostJob, OutreachGenerator, etc.
-    │   │   └── admin/          # Admin dashboard & User moderation
-    │   ├── services/           # Axios API instance
-    │   └── App.jsx             # Master Route Registry
-    └── package.json
-```
-
----
-
 ## 📄 License
-
 This project is licensed under the [MIT License](LICENSE).
 <br />
 Developed with ❤️ by **Sanjay Kumar** & the HireHub Engineering Team.

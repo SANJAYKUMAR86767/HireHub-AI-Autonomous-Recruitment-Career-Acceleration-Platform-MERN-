@@ -43,6 +43,10 @@ import {
   EyeOff,
   Mail,
   Send,
+  Radio,
+  Server,
+  Database,
+  Code2,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -134,11 +138,30 @@ const DEFAULT_FEATURED_JOBS = [
 ];
 
 const LIVE_ACTIVITIES = [
-  "⚡ Global Match Engine: Rahul S. scored 96% AI Precision Match for Staff Architect Role",
-  "💼 Priya M. initiated automated Google Calendar & Meet link for Senior Full Stack position",
-  "🤖 ATS Parser Processed 5,200+ Resumes with 99.8% semantic extraction accuracy",
-  "🔥 Trending Global Listing: Principal Cloud DevOps Lead (USD $140,000 - $180,000 / ₹35 LPA)",
-  "🎉 Verified Recruiter Hiring Velocity reached record high of 4.2x efficiency",
+  "⚡ Autonomous Agent: Siddharth R. matched 97% fit for Principal Cloud DevOps Architect",
+  "🎥 Live Mock Studio: Priya M. completed STAR interview with 96% confidence telemetry",
+  "🤖 ATS Parser Processed 8,400+ Resumes with 99.8% verified semantic accuracy",
+  "💥 Chaos Sandbox: Redis failover circuit breaker recovered in 12ms with zero downtime",
+  "🎉 Recruiter Boolean Engine: Sourced 24 verified Staff Golang leads in 3 seconds",
+];
+
+const PLATFORM_STATS = [
+  { label: "Active Global Opportunities", value: "50,000+", icon: Briefcase, color: "text-indigo-400" },
+  { label: "AI ATS Matching Precision", value: "99.8%", icon: Sparkles, color: "text-emerald-400" },
+  { label: "Autonomous AI Studios", value: "16+", icon: Bot, color: "text-purple-400" },
+  { label: "Real-Time Socket Telemetry", value: "<15 ms", icon: Activity, color: "text-amber-400" },
+];
+
+const TECH_BADGES = [
+  { name: "React 18", type: "Frontend" },
+  { name: "Node.js & Express", type: "Backend API" },
+  { name: "MongoDB Atlas", type: "Cloud DB" },
+  { name: "Socket.IO", type: "Realtime" },
+  { name: "WebRTC Streaming", type: "Live Video" },
+  { name: "Web Speech API", type: "AI Speech" },
+  { name: "Tailwind CSS 3", type: "Styling" },
+  { name: "Vercel Edge", type: "Edge CDN" },
+  { name: "Docker", type: "DevOps" },
 ];
 
 const CATEGORIES = [
@@ -159,165 +182,148 @@ const TOP_COMPANIES = [
 
 const ADVANCED_PLATFORM_FEATURES = [
   {
+    category: "recruiter",
     title: "Autonomous AI Recruiter Agent",
     desc: "24/7 autonomous loop sourcing, screening, and scheduling interviews with senior candidates.",
     icon: Bot,
     color: "from-purple-600 to-indigo-600",
     link: "/recruiter/autonomous-agent",
+    badge: "Recruiter Suite",
   },
   {
+    category: "candidate",
     title: "Video Body Language Telemetry HUD",
     desc: "Real-time eye contact tracking, speech cadence meter, and filler word detection.",
     icon: Video,
     color: "from-blue-600 to-indigo-600",
     link: "/candidate/video-telemetry",
+    badge: "Live Telemetry",
   },
   {
+    category: "candidate",
     title: "FAANG Skill Gap & Leveling Matrix",
     desc: "Benchmark technical competencies against L4/L5/L6 ladders with a 90-day promotion sprint.",
     icon: Target,
     color: "from-emerald-600 to-teal-600",
     link: "/candidate/skill-matrix-gap",
+    badge: "Career Ladder",
   },
   {
+    category: "candidate",
     title: "1-Click AI InMail & Cold Pitch Generator",
     desc: "Craft high-conversion cold messages for Founders, Hiring Managers, and Peer Engineers.",
     icon: Send,
     color: "from-amber-500 to-orange-600",
     link: "/candidate/inmail-pitch",
+    badge: "Outreach Engine",
   },
   {
+    category: "candidate",
     title: "AI Behavioral STAR Storytelling Coach",
     desc: "Interactive Amazon Leadership Principles & Google behavioral rubric with real-time STAR scoring.",
     icon: Star,
     color: "from-amber-500 to-orange-600",
     link: "/candidate/star-coach",
+    badge: "FAANG Rubric",
   },
   {
+    category: "system",
     title: "Distributed Chaos & Self-Healing Sandbox",
     desc: "Inject infrastructure failures (Redis outage, DDoS, DB partitions) and stress-test circuit breakers.",
     icon: Activity,
     color: "from-rose-500 to-red-600",
     link: "/candidate/chaos-simulator",
+    badge: "Chaos Monkey",
   },
   {
+    category: "recruiter",
     title: "AI Boolean Search & Talent X-Ray",
     desc: "Generate production Boolean query strings and launch 1-click candidate search across LinkedIn & GitHub.",
     icon: Search,
     color: "from-indigo-600 to-purple-600",
     link: "/recruiter/boolean-generator",
+    badge: "Headhunting",
   },
   {
+    category: "recruiter",
     title: "AI Blind Resume & Bias Shield",
     desc: "Anonymize candidate demographic tags while highlighting pure verified technical achievements.",
     icon: EyeOff,
     color: "from-emerald-600 to-teal-600",
     link: "/recruiter/blind-resume",
+    badge: "DEI Shield",
   },
   {
+    category: "candidate",
     title: "AI Salary & Offer Negotiation Studio",
     desc: "Interactive AI HR persona simulator with 1-click tactical counter-offer scripts and equity lift calculators.",
     icon: DollarSign,
     color: "from-emerald-500 to-teal-600",
     link: "/candidate/salary-negotiator",
+    badge: "Compensation",
   },
   {
+    category: "candidate",
     title: "AI GitHub & Codebase Seniority Auditor",
     desc: "Audits repository architecture, concurrency, CI/CD, and generates quantified Google XYZ resume bullets.",
     icon: GitBranch,
     color: "from-purple-600 to-indigo-600",
     link: "/candidate/portfolio-ranker",
+    badge: "Code Audit",
   },
   {
+    category: "candidate",
     title: "Global PPP & Tax Salary Normalizer",
     desc: "Compare tech salaries between India, US, UK, Germany & UAE with real-world tax take-home and rent costs.",
     icon: Globe2,
     color: "from-blue-600 to-cyan-600",
     link: "/candidate/global-compensation",
+    badge: "PPP Insights",
   },
   {
+    category: "recruiter",
     title: "Recruiter Multi-Candidate Screener",
     desc: "Side-by-side candidate comparison radar with automated red flag detection and tailored interview questions.",
     icon: Users,
     color: "from-pink-600 to-purple-600",
     link: "/recruiter/batch-screener",
+    badge: "Radar Screener",
   },
   {
+    category: "candidate",
     title: "Live Mock Video Interview Studio",
     desc: "Camera & mic video studio with real-time speech transcription, WPM pace HUD, and instant 4-pillar rubric grading.",
     icon: Video,
     color: "from-amber-500 to-orange-600",
     link: "/candidate/live-interview",
+    badge: "Live Video",
   },
   {
+    category: "candidate",
     title: "Engineering Career Leveling Roadmap",
     desc: "Interactive career leveling ladder (L1-L5), salary benchmarks across INR & USD, and promotion milestone checklists.",
     icon: TrendingUp,
     color: "from-indigo-500 to-purple-600",
     link: "/candidate/career-roadmap",
+    badge: "Roadmap",
   },
   {
+    category: "recruiter",
     title: "Recruiter Autonomous Talent Radar",
     desc: "Direct candidate scouting by skill matrix, AI match fit, verified badges, and 1-click Google Calendar invites.",
     icon: Target,
     color: "from-purple-500 to-pink-600",
     link: "/recruiter/talent-pool",
+    badge: "Talent Radar",
   },
   {
+    category: "candidate",
     title: "AI ATS Resume Parser & Score",
     desc: "Instant 0-100% precision match score with missing skills matrix & AI tailored Cover Letter.",
     icon: Sparkles,
     color: "from-indigo-600 to-blue-600",
     link: "/jobs/demo-job-1",
-  },
-  {
-    title: "Engineering Career Leveling Roadmap",
-    desc: "Interactive career leveling ladder (L1-L5), salary benchmarks across INR & USD, and promotion milestone checklists.",
-    icon: TrendingUp,
-    color: "from-indigo-500 to-purple-600",
-    link: "/candidate/career-roadmap",
-  },
-  {
-    title: "Recruiter Autonomous Talent Radar",
-    desc: "Direct candidate scouting by skill matrix, AI match fit, verified badges, and 1-click Google Calendar invites.",
-    icon: Target,
-    color: "from-purple-500 to-pink-600",
-    link: "/recruiter/talent-pool",
-  },
-  {
-    title: "AI ATS Resume Parser & Score",
-    desc: "Instant 0-100% precision match score with missing skills matrix & AI tailored Cover Letter.",
-    icon: Sparkles,
-    color: "from-indigo-600 to-blue-600",
-    link: "/jobs/demo-job-1",
-  },
-  {
-    title: "Real-Time Socket.io Chat Workspace",
-    desc: "Direct candidate-recruiter messaging with 1-click Google Meet video room launcher.",
-    icon: MessageSquare,
-    color: "from-emerald-500 to-teal-600",
-    link: "/chat/cand-demo-1",
-  },
-  {
-    title: "Executive Smart Resume Studio",
-    desc: "Live PDF resume preview builder with 1-click export and ATS templates.",
-    icon: FileCode2,
-    color: "from-amber-500 to-orange-600",
-    link: "/candidate/resume-builder",
-  },
-  {
-    title: "AI English Spoken Practice Coach",
-    desc: "Practice interview spoken English from Beginner to Executive level with real-time AI voice evaluation.",
-    icon: BookOpen,
-    color: "from-blue-600 to-cyan-500",
-    link: "/candidate/english-coach",
-  },
-  {
-    title: "AI Live Technical Coding Sandbox",
-    desc: "Solve Meta/Google/Uber LeetCode data structure problems with instant AI execution & complexity auditor.",
-    icon: Terminal,
-    color: "from-emerald-600 to-teal-500",
-    link: "/candidate/coding-sandbox",
+    badge: "ATS Parser",
   },
 ];
 
@@ -328,6 +334,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [showSalaryModal, setShowSalaryModal] = useState(false);
   const [activeCategory, setActiveCategory] = useState("All");
+  const [studioFilter, setStudioFilter] = useState("all");
   const [tickerIndex, setTickerIndex] = useState(0);
 
   useEffect(() => {
@@ -404,6 +411,11 @@ export default function Home() {
     return true;
   });
 
+  const filteredStudios = advancedPlatformFeatures.filter((f) => {
+    if (studioFilter === "all") return true;
+    return f.category === studioFilter;
+  });
+
   const resetFilters = () => {
     setActiveCategory("All");
     setWorkModeFilter("all");
@@ -426,37 +438,56 @@ export default function Home() {
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
           </span>
           <span className="uppercase text-[10px] tracking-widest text-emerald-400 font-extrabold bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/30">
-            Realtime Global Activity
+            Realtime AI Activity
           </span>
           <span className="truncate transition-all duration-500 text-slate-200">{LIVE_ACTIVITIES[tickerIndex]}</span>
         </div>
       </div>
 
       {/* World-Class Hero Section */}
-      <div className="relative overflow-hidden pt-16 pb-24 px-4">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-indigo-600/25 blur-[140px] rounded-full pointer-events-none" />
-        <div className="absolute top-1/3 left-1/4 w-[400px] h-[250px] bg-purple-600/20 blur-[120px] rounded-full pointer-events-none animate-pulse" />
-        <div className="absolute top-1/2 right-1/4 w-[350px] h-[220px] bg-emerald-600/15 blur-[120px] rounded-full pointer-events-none" />
+      <div className="relative overflow-hidden pt-16 pb-20 px-4">
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-indigo-600/25 blur-[150px] rounded-full pointer-events-none" />
+        <div className="absolute top-1/3 left-1/4 w-[450px] h-[300px] bg-purple-600/20 blur-[130px] rounded-full pointer-events-none animate-pulse" />
+        <div className="absolute top-1/2 right-1/4 w-[400px] h-[250px] bg-emerald-600/15 blur-[130px] rounded-full pointer-events-none" />
 
         <div className="max-w-6xl mx-auto text-center relative z-10">
-          <div className="inline-flex items-center space-x-2.5 bg-slate-900/90 backdrop-blur-2xl border border-indigo-500/30 px-4 py-2 rounded-full text-xs font-extrabold text-indigo-300 mb-8 shadow-xl glow-indigo animate-float">
+          <div className="inline-flex items-center space-x-2.5 bg-slate-900/90 backdrop-blur-2xl border border-indigo-500/40 px-4 py-2 rounded-full text-xs font-extrabold text-indigo-300 mb-8 shadow-2xl glow-indigo animate-float">
             <Bot className="w-4 h-4 text-indigo-400 animate-spin" />
-            <span>Next-Gen World Class MERN + AI Career Portal</span>
+            <span>Autonomous AI Ecosystem & Recruitment Operating System</span>
           </div>
 
-          <h1 className="text-4xl sm:text-7xl font-black tracking-tight leading-[1.1]">
-            Empowering Careers Worldwide with <br />
+          <h1 className="text-4xl sm:text-7xl font-black tracking-tight leading-[1.08]">
+            Accelerating Global Tech Careers with <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-300 to-amber-300">
               Autonomous AI Intelligence
             </span>
           </h1>
 
           <p className="mt-6 text-base sm:text-lg text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed">
-            Real-time ATS Resume Parser, AI Cover Letter Generator, Voice Mock Interviewer, and Recruiter Kanban Pipelines in a unified, world-class ecosystem.
+            16+ unified studios: Live Video Mock HUDs, FAANG STAR Storytelling Coach, Autonomous Headhunting Agents, Chaos Engineering Simulators, and Global PPP Salary Analyzers.
           </p>
 
+          {/* Quick Hero Call-to-Actions */}
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <Link
+              to="/candidate/live-interview"
+              className="bg-gradient-to-r from-indigo-500 via-purple-600 to-indigo-600 hover:from-indigo-600 hover:to-purple-700 text-white px-7 py-3.5 rounded-2xl font-black text-xs shadow-xl shadow-indigo-500/30 transition flex items-center space-x-2"
+            >
+              <Video className="w-4 h-4 text-amber-400" />
+              <span>Launch Live Video AI Studio</span>
+            </Link>
+
+            <Link
+              to="/recruiter/autonomous-agent"
+              className="bg-slate-900/90 hover:bg-slate-800 text-purple-300 border border-purple-500/40 px-7 py-3.5 rounded-2xl font-black text-xs shadow-xl backdrop-blur-xl transition flex items-center space-x-2"
+            >
+              <Bot className="w-4 h-4 text-purple-400" />
+              <span>Deploy Autonomous Recruiter</span>
+            </Link>
+          </div>
+
           {/* Interactive Search Box */}
-          <div className="mt-10 max-w-4xl mx-auto">
+          <div className="mt-12 max-w-4xl mx-auto">
             <div className="glass-panel p-4 rounded-3xl shadow-2xl glow-purple border border-slate-700/80">
               <div className="flex flex-col sm:flex-row gap-3">
                 <div className="relative flex-1 flex items-center">
@@ -464,7 +495,7 @@ export default function Home() {
                   <input
                     value={q}
                     onChange={(e) => setQ(e.target.value)}
-                    placeholder="Type any job title or skill (e.g. Python, React, DevOps, Django)..."
+                    placeholder="Type any job title or skill (e.g. Golang, React, Kafka, DevOps, PyTorch)..."
                     className="w-full bg-slate-900/80 text-white placeholder-slate-400 pl-12 pr-4 py-3.5 rounded-2xl text-sm font-medium focus:outline-none border border-slate-700/60 focus:border-indigo-500"
                   />
                 </div>
@@ -533,25 +564,51 @@ export default function Home() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
 
-            {/* Quick Action Badges */}
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-              <button
-                onClick={() => setShowSalaryModal(true)}
-                className="inline-flex items-center space-x-2 bg-slate-900/90 hover:bg-slate-800 text-emerald-400 border border-emerald-500/30 px-5 py-2.5 rounded-2xl text-xs font-bold transition shadow-lg backdrop-blur-xl"
+      {/* Platform Real-Time KPI Stats Banner */}
+      <div className="max-w-7xl mx-auto px-4 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {PLATFORM_STATS.map((stat, idx) => {
+            const Icon = stat.icon;
+            return (
+              <div
+                key={idx}
+                className="bg-slate-900/90 border border-slate-800 p-5 rounded-3xl backdrop-blur-xl shadow-xl flex items-center space-x-4 group hover:border-indigo-500/40 transition-all"
               >
-                <DollarSign className="w-4 h-4 text-emerald-400" />
-                <span>AI Compensation Predictor</span>
-              </button>
+                <div className="w-12 h-12 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-center text-indigo-400 group-hover:scale-110 transition-transform">
+                  <Icon className={`w-6 h-6 ${stat.color}`} />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-black text-white">{stat.value}</h3>
+                  <p className="text-[11px] text-slate-400 font-medium">{stat.label}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
 
-              <Link
-                to="/candidate/interview-prep"
-                className="inline-flex items-center space-x-2 bg-slate-900/90 hover:bg-slate-800 text-purple-300 border border-purple-500/30 px-5 py-2.5 rounded-2xl text-xs font-bold transition shadow-lg backdrop-blur-xl"
+      {/* Technologies & Languages Architecture Ribbon */}
+      <div className="max-w-7xl mx-auto px-4 mb-16">
+        <div className="bg-slate-900/80 border border-slate-800/80 p-5 rounded-3xl backdrop-blur-xl flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex items-center space-x-2 text-xs font-extrabold uppercase tracking-widest text-indigo-400 flex-shrink-0">
+            <Code2 className="w-4 h-4 text-amber-400" />
+            <span>Powering Infrastructure:</span>
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            {TECH_BADGES.map((b, i) => (
+              <span
+                key={i}
+                className="bg-slate-950/90 border border-slate-700/60 text-slate-300 px-3 py-1 rounded-xl text-xs font-bold flex items-center space-x-1.5 shadow-sm"
               >
-                <Sparkles className="w-4 h-4 text-amber-400" />
-                <span>Voice Mock Interview Simulator</span>
-              </Link>
-            </div>
+                <span className="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+                <span>{b.name}</span>
+                <span className="text-[9px] text-slate-500 uppercase">({b.type})</span>
+              </span>
+            ))}
           </div>
         </div>
       </div>
@@ -591,8 +648,80 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Advanced Platform Suite Showcase Section */}
+      <div className="max-w-7xl mx-auto px-4 py-16 border-t border-slate-800/80">
+        <div className="text-center max-w-3xl mx-auto mb-10">
+          <div className="inline-flex items-center space-x-2 text-indigo-400 text-xs font-bold uppercase tracking-widest bg-indigo-500/10 px-3 py-1 rounded-full border border-indigo-500/20 mb-3">
+            <Zap className="w-3.5 h-3.5 text-amber-400" />
+            <span>Unified Autonomous Ecosystem</span>
+          </div>
+          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
+            16+ Autonomous AI Studios
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-400 mt-2">
+            Everything you need for candidate evaluation, interview simulation, real-time telemetry, and recruiter automation.
+          </p>
+
+          {/* Category Tabs Filter */}
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
+            {[
+              { id: "all", label: "All 16+ Studios" },
+              { id: "candidate", label: "🧑 Candidate AI Studios" },
+              { id: "recruiter", label: "💼 Recruiter Suites" },
+              { id: "system", label: "⚡ System & Code Engines" },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setStudioFilter(tab.id)}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition ${
+                  studioFilter === tab.id
+                    ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-500/20"
+                    : "bg-slate-900 border border-slate-800 text-slate-400 hover:text-white"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {filteredStudios.map((f, i) => {
+            const Icon = f.icon;
+            return (
+              <Link
+                key={i}
+                to={f.link}
+                className="bg-slate-900 border border-slate-800 hover:border-indigo-500/50 p-6 rounded-3xl transition-all shadow-xl flex flex-col justify-between group hover:-translate-y-1"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div
+                      className={`w-12 h-12 rounded-2xl bg-gradient-to-tr ${f.color} text-white font-bold flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform`}
+                    >
+                      <Icon className="w-6 h-6 text-white" />
+                    </div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 bg-slate-950 px-2.5 py-1 rounded-lg border border-slate-800">
+                      {f.badge}
+                    </span>
+                  </div>
+                  <h3 className="font-extrabold text-base text-white group-hover:text-indigo-400 transition-colors">
+                    {f.title}
+                  </h3>
+                  <p className="text-xs text-slate-400 mt-2 leading-relaxed">{f.desc}</p>
+                </div>
+                <div className="mt-6 pt-3 border-t border-slate-800/80 flex items-center text-xs font-bold text-indigo-400 group-hover:text-indigo-300">
+                  <span>Launch Studio</span>
+                  <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+
       {/* Interactive Global Jobs Marketplace */}
-      <div id="jobs-marketplace" className="max-w-7xl mx-auto px-4 py-12">
+      <div id="jobs-marketplace" className="max-w-7xl mx-auto px-4 py-12 border-t border-slate-800/80">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-10">
           <div>
             <h2 className="text-3xl font-extrabold text-white flex items-center gap-2.5">
@@ -679,65 +808,8 @@ export default function Home() {
         )}
       </div>
 
-      {/* Advanced Platform Suite Showcase Section */}
-      <div className="max-w-7xl mx-auto px-4 py-16 border-t border-slate-800/80">
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center space-x-2 text-indigo-400 text-xs font-bold uppercase tracking-widest bg-indigo-500/10 px-3 py-1 rounded-full border border-indigo-500/20 mb-3">
-            <Zap className="w-3.5 h-3.5 text-amber-400" />
-            <span>Unified Autonomous Ecosystem</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-black text-white">Next-Gen Autonomous AI Capabilities</h2>
-          <p className="text-xs sm:text-sm text-slate-400 mt-2">
-            Everything you need for candidate evaluation, interview simulation, real-time messaging, and ATS resume creation.
-          </p>
-        </div>
-
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {advancedPlatformFeatures.map((f, i) => {
-            const Icon = f.icon;
-            return (
-              <Link
-                key={i}
-                to={f.link}
-                className="bg-slate-900 border border-slate-800 hover:border-indigo-500/50 p-6 rounded-3xl transition-all shadow-xl flex flex-col justify-between group hover:-translate-y-1"
-              >
-                <div>
-                  <div
-                    className={`w-12 h-12 rounded-2xl bg-gradient-to-tr ${f.color} text-white font-bold flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform`}
-                  >
-                    <Icon className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="font-extrabold text-base text-white group-hover:text-indigo-400 transition-colors">
-                    {f.title}
-                  </h3>
-                  <p className="text-xs text-slate-400 mt-2 leading-relaxed">{f.desc}</p>
-                </div>
-                <div className="mt-6 pt-3 border-t border-slate-800/80 flex items-center text-xs font-bold text-indigo-400 group-hover:text-indigo-300">
-                  <span>Explore Feature</span>
-                  <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      </div>
-
       {/* Salary Modal */}
       <SalaryPredictorModal isOpen={showSalaryModal} onClose={() => setShowSalaryModal(false)} />
-    </div>
-  );
-}
-
-function MetricItem({ icon: Icon, label, value, color }) {
-  return (
-    <div className="flex items-center space-x-3.5">
-      <div className={`p-3.5 rounded-2xl bg-slate-900/90 border border-slate-700/80 ${color} shadow-inner`}>
-        <Icon className="w-6 h-6" />
-      </div>
-      <div>
-        <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">{label}</p>
-        <p className="text-xl font-black text-white">{value}</p>
-      </div>
     </div>
   );
 }
