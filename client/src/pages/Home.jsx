@@ -232,98 +232,11 @@ export default function Home() {
     },
   ];
 
-  const DEFAULT_FEATURED_JOBS = [
-    {
-      _id: "demo-job-1",
-      title: "Senior Full Stack Distributed Architect",
-      companyName: "Meta / Instagram",
-      location: "Bengaluru, IN (Remote)",
-      workMode: "Remote",
-      jobType: "Full-time",
-      salary: "₹36 - 54 LPA",
-      salaryMin: 3600000,
-      salaryMax: 5400000,
-      skills: ["React", "Node.js", "TypeScript", "Kafka", "GraphQL", "AWS"],
-      description: "Architect and scale mission-critical high-throughput feed microservices supporting 50M+ concurrent global users.",
-      experienceRequired: 5,
-    },
-    {
-      _id: "demo-job-2",
-      title: "Staff Frontend Core Web Vitals Lead",
-      companyName: "Stripe Platform",
-      location: "Hyderabad, IN (Hybrid)",
-      workMode: "Hybrid",
-      jobType: "Full-time",
-      salary: "₹32 - 48 LPA",
-      salaryMin: 3200000,
-      salaryMax: 4800000,
-      skills: ["React 19", "Next.js", "TypeScript", "Tailwind CSS", "Web Performance"],
-      description: "Lead global checkout UX architecture and optimize sub-second load times across mobile and web interfaces.",
-      experienceRequired: 4,
-    },
-    {
-      _id: "demo-job-3",
-      title: "Principal Cloud DevOps & Kubernetes SRE",
-      companyName: "Amazon Web Services",
-      location: "Bengaluru, IN (Onsite)",
-      workMode: "Onsite",
-      jobType: "Full-time",
-      salary: "₹40 - 62 LPA",
-      salaryMin: 4000000,
-      salaryMax: 6200000,
-      skills: ["AWS", "Kubernetes", "Docker", "Terraform", "CI/CD", "Linux"],
-      description: "Manage multi-region Kubernetes clusters with zero-downtime canary deployments and 99.999% SLA availability.",
-      experienceRequired: 6,
-    },
-    {
-      _id: "demo-job-4",
-      title: "Autonomous AI & GenAI Systems Engineer",
-      companyName: "OpenAI Platform Partner",
-      location: "San Francisco / Remote",
-      workMode: "Remote",
-      jobType: "Full-time",
-      salary: "$165,000 - $225,000",
-      salaryMin: 4500000,
-      salaryMax: 7500000,
-      skills: ["Python", "LangChain", "Vector DB", "FastAPI", "PostgreSQL", "PyTorch"],
-      description: "Build low-latency LLM agent reasoning pipelines, vector embeddings, and RAG retrieval systems.",
-      experienceRequired: 4,
-    },
-    {
-      _id: "demo-job-5",
-      title: "High-Throughput Backend Golang Engineer",
-      companyName: "Uber Infrastructure",
-      location: "Bengaluru, IN (Hybrid)",
-      workMode: "Hybrid",
-      jobType: "Full-time",
-      salary: "₹30 - 45 LPA",
-      salaryMin: 3000000,
-      salaryMax: 4500000,
-      skills: ["Go", "Microservices", "Redis", "PostgreSQL", "gRPC", "Docker"],
-      description: "Design high-concurrency dispatch and geolocation microservices handling 250,000+ QPS.",
-      experienceRequired: 3,
-    },
-    {
-      _id: "demo-job-6",
-      title: "Lead Security & Cloud Compliance Architect",
-      companyName: "TechCorp Global",
-      location: "Mumbai, IN (Remote)",
-      workMode: "Remote",
-      jobType: "Full-time",
-      salary: "₹28 - 42 LPA",
-      salaryMin: 2800000,
-      salaryMax: 4200000,
-      skills: ["Cloud Security", "OAuth 2.0", "Penetration Testing", "AWS", "KMS"],
-      description: "Enforce enterprise zero-trust security architecture, JWT cryptographic signing, and cloud compliance.",
-      experienceRequired: 5,
-    },
-  ];
-
   const fetchJobs = async () => {
     setLoading(true);
     try {
       const res = await api.get("/jobs");
-      if (res.data && res.data.length > 0) {
+      if (res.data && Array.isArray(res.data) && res.data.length > 0) {
         setJobs(res.data);
       } else {
         setJobs(DEFAULT_FEATURED_JOBS);
