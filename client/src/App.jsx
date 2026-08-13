@@ -30,6 +30,9 @@ import PortfolioRanker from "./pages/candidate/PortfolioRanker";
 import GlobalCompensation from "./pages/candidate/GlobalCompensation";
 import StarBehavioralCoach from "./pages/candidate/StarBehavioralCoach";
 import ChaosSystemSimulator from "./pages/candidate/ChaosSystemSimulator";
+import VideoTelemetryStudio from "./pages/candidate/VideoTelemetryStudio";
+import SkillMatrixGapAnalyzer from "./pages/candidate/SkillMatrixGapAnalyzer";
+import InmailPitchGenerator from "./pages/candidate/InmailPitchGenerator";
 
 // Recruiter Pages
 import RecruiterDashboard from "./pages/recruiter/Dashboard";
@@ -40,6 +43,7 @@ import RecruiterOutreachGenerator from "./pages/recruiter/RecruiterOutreachGener
 import BatchCandidateScreener from "./pages/recruiter/BatchCandidateScreener";
 import BooleanSearchGenerator from "./pages/recruiter/BooleanSearchGenerator";
 import BlindResumeAuditor from "./pages/recruiter/BlindResumeAuditor";
+import AutonomousRecruiterAgent from "./pages/recruiter/AutonomousRecruiterAgent";
 
 // Admin Pages
 import AdminDashboard from "./pages/admin/Dashboard";
@@ -72,6 +76,9 @@ export default function App() {
         <Route path="/candidate/live-interview" element={
           <ProtectedRoute role="candidate"><LiveVideoInterview /></ProtectedRoute>
         } />
+        <Route path="/candidate/video-telemetry" element={
+          <ProtectedRoute role="candidate"><VideoTelemetryStudio /></ProtectedRoute>
+        } />
         <Route path="/candidate/resume-builder" element={
           <ProtectedRoute role="candidate"><ResumeBuilder /></ProtectedRoute>
         } />
@@ -95,6 +102,12 @@ export default function App() {
         } />
         <Route path="/candidate/chaos-simulator" element={
           <ProtectedRoute role="candidate"><ChaosSystemSimulator /></ProtectedRoute>
+        } />
+        <Route path="/candidate/skill-matrix-gap" element={
+          <ProtectedRoute role="candidate"><SkillMatrixGapAnalyzer /></ProtectedRoute>
+        } />
+        <Route path="/candidate/inmail-pitch" element={
+          <ProtectedRoute role="candidate"><InmailPitchGenerator /></ProtectedRoute>
         } />
         <Route path="/candidate/system-design-studio" element={
           <ProtectedRoute role="candidate"><SystemDesignStudio /></ProtectedRoute>
@@ -138,6 +151,9 @@ export default function App() {
         } />
         <Route path="/recruiter/blind-resume" element={
           <ProtectedRoute role="recruiter"><BlindResumeAuditor /></ProtectedRoute>
+        } />
+        <Route path="/recruiter/autonomous-agent" element={
+          <ProtectedRoute role="recruiter"><AutonomousRecruiterAgent /></ProtectedRoute>
         } />
         <Route path="/recruiter/outreach-generator" element={
           <ProtectedRoute role="recruiter"><RecruiterOutreachGenerator /></ProtectedRoute>

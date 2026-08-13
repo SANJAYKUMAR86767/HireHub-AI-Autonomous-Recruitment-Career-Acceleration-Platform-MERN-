@@ -41,6 +41,8 @@ import {
   Scale,
   Activity,
   EyeOff,
+  Mail,
+  Send,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -157,6 +159,34 @@ const TOP_COMPANIES = [
 
 const ADVANCED_PLATFORM_FEATURES = [
   {
+    title: "Autonomous AI Recruiter Agent",
+    desc: "24/7 autonomous loop sourcing, screening, and scheduling interviews with senior candidates.",
+    icon: Bot,
+    color: "from-purple-600 to-indigo-600",
+    link: "/recruiter/autonomous-agent",
+  },
+  {
+    title: "Video Body Language Telemetry HUD",
+    desc: "Real-time eye contact tracking, speech cadence meter, and filler word detection.",
+    icon: Video,
+    color: "from-blue-600 to-indigo-600",
+    link: "/candidate/video-telemetry",
+  },
+  {
+    title: "FAANG Skill Gap & Leveling Matrix",
+    desc: "Benchmark technical competencies against L4/L5/L6 ladders with a 90-day promotion sprint.",
+    icon: Target,
+    color: "from-emerald-600 to-teal-600",
+    link: "/candidate/skill-matrix-gap",
+  },
+  {
+    title: "1-Click AI InMail & Cold Pitch Generator",
+    desc: "Craft high-conversion cold messages for Founders, Hiring Managers, and Peer Engineers.",
+    icon: Send,
+    color: "from-amber-500 to-orange-600",
+    link: "/candidate/inmail-pitch",
+  },
+  {
     title: "AI Behavioral STAR Storytelling Coach",
     desc: "Interactive Amazon Leadership Principles & Google behavioral rubric with real-time STAR scoring.",
     icon: Star,
@@ -218,6 +248,27 @@ const ADVANCED_PLATFORM_FEATURES = [
     icon: Video,
     color: "from-amber-500 to-orange-600",
     link: "/candidate/live-interview",
+  },
+  {
+    title: "Engineering Career Leveling Roadmap",
+    desc: "Interactive career leveling ladder (L1-L5), salary benchmarks across INR & USD, and promotion milestone checklists.",
+    icon: TrendingUp,
+    color: "from-indigo-500 to-purple-600",
+    link: "/candidate/career-roadmap",
+  },
+  {
+    title: "Recruiter Autonomous Talent Radar",
+    desc: "Direct candidate scouting by skill matrix, AI match fit, verified badges, and 1-click Google Calendar invites.",
+    icon: Target,
+    color: "from-purple-500 to-pink-600",
+    link: "/recruiter/talent-pool",
+  },
+  {
+    title: "AI ATS Resume Parser & Score",
+    desc: "Instant 0-100% precision match score with missing skills matrix & AI tailored Cover Letter.",
+    icon: Sparkles,
+    color: "from-indigo-600 to-blue-600",
+    link: "/jobs/demo-job-1",
   },
   {
     title: "Engineering Career Leveling Roadmap",
