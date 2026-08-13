@@ -25,6 +25,9 @@ import CareerRoadmap from "./pages/candidate/CareerRoadmap";
 import EnglishSpokenCoach from "./pages/candidate/EnglishSpokenCoach";
 import AiCodingSandbox from "./pages/candidate/CodingSandbox";
 import AiSkillCertification from "./pages/candidate/SkillCertification";
+import SalaryNegotiator from "./pages/candidate/SalaryNegotiator";
+import PortfolioRanker from "./pages/candidate/PortfolioRanker";
+import GlobalCompensation from "./pages/candidate/GlobalCompensation";
 
 // Recruiter Pages
 import RecruiterDashboard from "./pages/recruiter/Dashboard";
@@ -32,11 +35,14 @@ import PostJob from "./pages/recruiter/PostJob";
 import Applicants from "./pages/recruiter/Applicants";
 import TalentRadar from "./pages/recruiter/TalentRadar";
 import RecruiterOutreachGenerator from "./pages/recruiter/RecruiterOutreachGenerator";
+import BatchCandidateScreener from "./pages/recruiter/BatchCandidateScreener";
 
 // Admin Pages
 import AdminDashboard from "./pages/admin/Dashboard";
 import AdminUsers from "./pages/admin/Users";
 import AdminJobs from "./pages/admin/Jobs";
+
+import RoleQuickSwitcher from "./components/RoleQuickSwitcher";
 
 export default function App() {
   return (
@@ -70,6 +76,15 @@ export default function App() {
         } />
         <Route path="/candidate/offer-analyzer" element={
           <ProtectedRoute role="candidate"><OfferAnalyzer /></ProtectedRoute>
+        } />
+        <Route path="/candidate/salary-negotiator" element={
+          <ProtectedRoute role="candidate"><SalaryNegotiator /></ProtectedRoute>
+        } />
+        <Route path="/candidate/portfolio-ranker" element={
+          <ProtectedRoute role="candidate"><PortfolioRanker /></ProtectedRoute>
+        } />
+        <Route path="/candidate/global-compensation" element={
+          <ProtectedRoute role="candidate"><GlobalCompensation /></ProtectedRoute>
         } />
         <Route path="/candidate/system-design-studio" element={
           <ProtectedRoute role="candidate"><SystemDesignStudio /></ProtectedRoute>
@@ -105,6 +120,9 @@ export default function App() {
         <Route path="/recruiter/talent-pool" element={
           <ProtectedRoute role="recruiter"><TalentRadar /></ProtectedRoute>
         } />
+        <Route path="/recruiter/batch-screener" element={
+          <ProtectedRoute role="recruiter"><BatchCandidateScreener /></ProtectedRoute>
+        } />
         <Route path="/recruiter/outreach-generator" element={
           <ProtectedRoute role="recruiter"><RecruiterOutreachGenerator /></ProtectedRoute>
         } />
@@ -123,6 +141,9 @@ export default function App() {
 
       {/* Global AI Career Copilot Assistant Drawer */}
       <AiCopilotDrawer />
+
+      {/* Global Demo Role Switcher */}
+      <RoleQuickSwitcher />
     </>
   );
 }

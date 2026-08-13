@@ -20,6 +20,9 @@ import {
   Layers,
   DollarSign,
   FileCode2,
+  GitBranch,
+  Users,
+  Globe2,
 } from "lucide-react";
 
 export default function Navbar() {
@@ -62,51 +65,51 @@ export default function Navbar() {
             <span>Live Video Mock</span>
           </Link>
 
-          {/* Career Roadmap */}
+          {/* Salary Negotiator */}
           <Link
-            to="/candidate/career-roadmap"
-            className="flex items-center space-x-1.5 hover:text-white px-3 py-2 rounded-xl hover:bg-slate-900 transition"
+            to="/candidate/salary-negotiator"
+            className="flex items-center space-x-1 hover:text-emerald-400 px-2.5 py-2 rounded-xl hover:bg-slate-900 transition text-emerald-300"
           >
-            <TrendingUp className="w-3.5 h-3.5 text-indigo-400" />
-            <span>Career Roadmap</span>
+            <DollarSign className="w-3.5 h-3.5 text-emerald-400" />
+            <span>AI Negotiator</span>
           </Link>
 
-          {/* Recruiter Talent Radar (Visible to recruiters/admins) */}
+          {/* GitHub Portfolio Ranker */}
+          <Link
+            to="/candidate/portfolio-ranker"
+            className="hidden lg:flex items-center space-x-1 hover:text-purple-400 px-2.5 py-2 rounded-xl hover:bg-slate-900 transition text-purple-300"
+          >
+            <GitBranch className="w-3.5 h-3.5 text-purple-400" />
+            <span>Codebase Ranker</span>
+          </Link>
+
+          {/* Global Compensation */}
+          <Link
+            to="/candidate/global-compensation"
+            className="hidden xl:flex items-center space-x-1 hover:text-blue-400 px-2.5 py-2 rounded-xl hover:bg-slate-900 transition text-blue-300"
+          >
+            <Globe2 className="w-3.5 h-3.5 text-blue-400" />
+            <span>PPP Normalizer</span>
+          </Link>
+
+          {/* Recruiter Batch Screener (Visible to recruiters/admins) */}
           {(user?.role === "recruiter" || user?.role === "admin") && (
             <Link
-              to="/recruiter/talent-pool"
-              className="flex items-center space-x-1.5 text-indigo-300 hover:text-white px-3 py-2 rounded-xl hover:bg-indigo-950/40 transition border border-indigo-500/30"
+              to="/recruiter/batch-screener"
+              className="flex items-center space-x-1.5 text-purple-300 hover:text-white px-3 py-2 rounded-xl hover:bg-purple-950/40 transition border border-purple-500/30"
             >
-              <Search className="w-3.5 h-3.5 text-indigo-400" />
-              <span>Talent Radar</span>
+              <Users className="w-3.5 h-3.5 text-purple-400" />
+              <span>Batch Screener</span>
             </Link>
           )}
 
-          {/* Offer Analyzer */}
+          {/* Career Roadmap */}
           <Link
-            to="/candidate/offer-analyzer"
-            className="hidden xl:flex items-center space-x-1 hover:text-emerald-400 px-2.5 py-2 rounded-xl hover:bg-slate-900 transition text-emerald-300"
+            to="/candidate/career-roadmap"
+            className="hidden 2xl:flex items-center space-x-1.5 hover:text-white px-3 py-2 rounded-xl hover:bg-slate-900 transition"
           >
-            <DollarSign className="w-3.5 h-3.5 text-emerald-400" />
-            <span>Offer Analyzer</span>
-          </Link>
-
-          {/* System Design */}
-          <Link
-            to="/candidate/system-design-studio"
-            className="hidden xl:flex items-center space-x-1 hover:text-purple-400 px-2.5 py-2 rounded-xl hover:bg-slate-900 transition"
-          >
-            <Layers className="w-3.5 h-3.5 text-purple-400" />
-            <span>System Design</span>
-          </Link>
-
-          {/* Resume Auditor */}
-          <Link
-            to="/candidate/resume-auditor"
-            className="hidden 2xl:flex items-center space-x-1 hover:text-indigo-400 px-2.5 py-2 rounded-xl hover:bg-slate-900 transition"
-          >
-            <FileCode2 className="w-3.5 h-3.5 text-indigo-400" />
-            <span>ATS Auditor</span>
+            <TrendingUp className="w-3.5 h-3.5 text-indigo-400" />
+            <span>Career Roadmap</span>
           </Link>
         </div>
 

@@ -37,6 +37,8 @@ import {
   FileCode2,
   BookOpen,
   Terminal,
+  GitBranch,
+  Scale,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -153,6 +155,34 @@ const TOP_COMPANIES = [
 
 const ADVANCED_PLATFORM_FEATURES = [
   {
+    title: "AI Salary & Offer Negotiation Studio",
+    desc: "Interactive AI HR persona simulator with 1-click tactical counter-offer scripts and equity lift calculators.",
+    icon: DollarSign,
+    color: "from-emerald-500 to-teal-600",
+    link: "/candidate/salary-negotiator",
+  },
+  {
+    title: "AI GitHub & Codebase Seniority Auditor",
+    desc: "Audits repository architecture, concurrency, CI/CD, and generates quantified Google XYZ resume bullets.",
+    icon: GitBranch,
+    color: "from-purple-600 to-indigo-600",
+    link: "/candidate/portfolio-ranker",
+  },
+  {
+    title: "Global PPP & Tax Salary Normalizer",
+    desc: "Compare tech salaries between India, US, UK, Germany & UAE with real-world tax take-home and rent costs.",
+    icon: Globe2,
+    color: "from-blue-600 to-cyan-600",
+    link: "/candidate/global-compensation",
+  },
+  {
+    title: "Recruiter Multi-Candidate Screener",
+    desc: "Side-by-side candidate comparison radar with automated red flag detection and tailored interview questions.",
+    icon: Users,
+    color: "from-pink-600 to-purple-600",
+    link: "/recruiter/batch-screener",
+  },
+  {
     title: "Live Mock Video Interview Studio",
     desc: "Camera & mic video studio with real-time speech transcription, WPM pace HUD, and instant 4-pillar rubric grading.",
     icon: Video,
@@ -160,16 +190,16 @@ const ADVANCED_PLATFORM_FEATURES = [
     link: "/candidate/live-interview",
   },
   {
-    title: "Engineering Career & Compensation Roadmap",
+    title: "Engineering Career Leveling Roadmap",
     desc: "Interactive career leveling ladder (L1-L5), salary benchmarks across INR & USD, and promotion milestone checklists.",
     icon: TrendingUp,
     color: "from-indigo-500 to-purple-600",
     link: "/candidate/career-roadmap",
   },
   {
-    title: "Recruiter Talent Discovery Radar",
+    title: "Recruiter Autonomous Talent Radar",
     desc: "Direct candidate scouting by skill matrix, AI match fit, verified badges, and 1-click Google Calendar invites.",
-    icon: Users,
+    icon: Target,
     color: "from-purple-500 to-pink-600",
     link: "/recruiter/talent-pool",
   },
@@ -207,13 +237,6 @@ const ADVANCED_PLATFORM_FEATURES = [
     icon: Terminal,
     color: "from-emerald-600 to-teal-500",
     link: "/candidate/coding-sandbox",
-  },
-  {
-    title: "AI Verifiable Skill Certificate Badge",
-    desc: "Earn AI-Verified skill credential badges displayed on recruiter candidate pipelines.",
-    icon: ShieldCheck,
-    color: "from-purple-600 to-indigo-600",
-    link: "/candidate/certification",
   },
 ];
 
