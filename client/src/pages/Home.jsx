@@ -35,6 +35,8 @@ import {
   Target,
   MessageSquare,
   FileCode2,
+  BookOpen,
+  Terminal,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
