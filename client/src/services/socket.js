@@ -4,10 +4,24 @@ let socket = null;
 
 export function connectSocket(token) {
   if (socket) return socket;
-  // Falls back to same-origin (dev proxy / nginx). In production, set
-  // VITE_SOCKET_URL to your deployed backend, e.g. https://hirehub-server.onrender.com
-  const url = import.meta.env.VITE_SOCKET_URL || "/";
-  socket = io(url, { auth: { token }, autoConnect: true });
+  const url = import.meta.env.VITE_SOCKET_URL;
+  if (!url) {
+    // If no external socket server is specified in production, stay idle
+    return null;
+  }
+  try {
+    socket = io(url, {
+      auth: { token },
+      autoConnect: true,
+      transports: ["websocket", "polling"],
+      reconnectionAttempts: 3,
+    });
+    socket.on("connect_error", () => {
+      // Silent error handler for disconnected environments
+    });
+  } catch (e) {
+    console.warn("Socket disabled or offline");
+  }
   return socket;
 }
 

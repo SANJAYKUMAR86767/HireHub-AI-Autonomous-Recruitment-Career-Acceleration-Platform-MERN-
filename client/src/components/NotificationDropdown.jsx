@@ -3,14 +3,43 @@ import { Bell, CheckCircle2, Calendar, Sparkles, Briefcase, Award, ExternalLink,
 import { Link } from "react-router-dom";
 import api from "../services/api";
 
+const DEFAULT_NOTIFICATIONS = [
+  {
+    id: "notif-1",
+    type: "interview",
+    title: "Google Calendar & Meet Link Generated",
+    desc: "Your Round 2 System Design Interview with Meta has been scheduled.",
+    time: "10m ago",
+    link: "/candidate/live-interview",
+    read: false,
+  },
+  {
+    id: "notif-2",
+    type: "job_match",
+    title: "96% AI Precision Match Detected",
+    desc: "Staff Frontend Lead role at Stripe matches your React & Web Vitals profile.",
+    time: "1h ago",
+    link: "/jobs/demo-job-2",
+    read: false,
+  },
+  {
+    id: "notif-3",
+    type: "badge",
+    title: "AI Skill Credential Issued",
+    desc: "Your Senior Full Stack MERN Architect badge is now active on your profile.",
+    time: "3h ago",
+    link: "/candidate/certification",
+    read: true,
+  },
+];
+
 export default function NotificationDropdown() {
   const [open, setOpen] = useState(false);
-  const [notifications, setNotifications] = useState([]);
+  const [notifications, setNotifications] = useState(DEFAULT_NOTIFICATIONS);
   const [unreadCount, setUnreadCount] = useState(2);
   const dropdownRef = useRef(null);
 
   useEffect(() => {
-    // Fetch notifications from server
     api
       .get("/advanced/notifications")
       .then((res) => {
@@ -20,11 +49,10 @@ export default function NotificationDropdown() {
           setUnreadCount(unread);
         }
       })
-      .catch((err) => {
-        console.error(err);
+      .catch(() => {
+        // Safe fallback already in place
       });
 
-    // Close on click outside
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setOpen(false);

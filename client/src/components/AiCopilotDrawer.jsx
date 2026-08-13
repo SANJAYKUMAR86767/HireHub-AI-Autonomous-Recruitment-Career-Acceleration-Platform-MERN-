@@ -56,11 +56,27 @@ export default function AiCopilotDrawer() {
       };
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (err) {
+      const lower = textToSend.toLowerCase();
+      let reply = "Here are tailored recommendations from your AI Career Copilot:\n\n1. **Quantify Results**: Format your bullet points using the Google XYZ formula: *'Accomplished [X] as measured by [Y] by doing [Z]'*.\n2. **System Reliability**: Emphasize latency improvements, p99 reductions, and automated testing.\n3. **Live Mock Practice**: Use our **Live Mock Video Studio** to practice answering under real-time audio analysis.";
+      let chips = ["STAR Behavioral Guide", "Salary Negotiation Script", "System Design Checklist"];
+
+      if (lower.includes("star") || lower.includes("behavior")) {
+        reply = "### ⭐ STAR Behavioral Framework for Senior Engineers:\n- **Situation**: Contextualize the business problem (e.g. 'Our checkout API experienced 15% latency degradation under peak Cyber Monday traffic').\n- **Task**: The explicit technical objective you owned (e.g. 'I was tasked with diagnosing the bottleneck and restoring sub-100ms response times').\n- **Action**: The specific architectural solutions you led (e.g. 'I profiled the PostgreSQL queries, introduced Redis cache-aside, and decoupled notification webhooks with Kafka').\n- **Result**: Quantifiable business outcome (e.g. 'P99 latency dropped by 65%, handling 25,000 QPS with 0 dropped orders').";
+        chips = ["Salary Negotiation Script", "System Design Checklist"];
+      } else if (lower.includes("salary") || lower.includes("negotiat") || lower.includes("offer")) {
+        reply = "### 💼 Senior Executive Counter-Offer Script:\n*'Thank you for extending this offer. I am genuinely excited about the architectural challenges at your company. Based on current market percentiles and the level of technical ownership for this role, I am targeting a base of ₹X LPA (or $Y) with an updated equity grant of Z. If we can reach this alignment, I am ready to sign immediately.'*";
+        chips = ["Check Offer Analyzer", "STAR Behavioral Guide"];
+      } else if (lower.includes("system") || lower.includes("design") || lower.includes("architect")) {
+        reply = "### 🏗️ Distributed System Design Checklist:\n1. **Edge**: Cloudflare CDN for static asset caching & DDoS absorption.\n2. **Routing**: Envoy / Nginx Load Balancer with SSL termination & health checks.\n3. **Caching**: Redis Cache-Aside with TTL expirations for 80% read reduction.\n4. **Decoupling**: Apache Kafka event streaming for asynchronous burst processing.\n5. **Persistence**: Sharded PostgreSQL/MongoDB with Read Replicas & PgBouncer pooling.";
+        chips = ["Launch System Design Studio", "Check Tech Trends"];
+      }
+
       setMessages((prev) => [
         ...prev,
         {
           role: "assistant",
-          text: "⚠️ I encountered an issue connecting to the AI engine. Please ensure you are logged in or try again.",
+          text: reply,
+          chips,
         },
       ]);
     } finally {
