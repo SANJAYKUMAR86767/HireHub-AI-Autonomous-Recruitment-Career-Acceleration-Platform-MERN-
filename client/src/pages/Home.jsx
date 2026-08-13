@@ -324,7 +324,7 @@ export default function Home() {
           <span className="uppercase text-[10px] tracking-widest text-emerald-400 font-extrabold bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/30">
             Realtime Global Activity
           </span>
-          <span className="truncate transition-all duration-500 text-slate-200">{liveActivities[tickerIndex]}</span>
+          <span className="truncate transition-all duration-500 text-slate-200">{LIVE_ACTIVITIES[tickerIndex]}</span>
         </div>
       </div>
 
