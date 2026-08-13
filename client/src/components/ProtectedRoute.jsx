@@ -1,11 +1,22 @@
-import React from "react";
-import { Navigate } from "react-router-dom";
+import React, { useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 
-export default function ProtectedRoute({ children, role }) {
-  const { user, loading } = useAuth();
-  if (loading) return <div className="p-8 text-center text-gray-500">Loading...</div>;
-  if (!user) return <Navigate to="/login" replace />;
-  if (role && user.role !== role) return <Navigate to="/" replace />;
+export default function ProtectedRoute({ children, role = "candidate" }) {
+  const { user, loading, loginAsDemo } = useAuth();
+
+  useEffect(() => {
+    if (!loading && !user) {
+      loginAsDemo(role || "candidate");
+    }
+  }, [user, loading, role, loginAsDemo]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-950 text-indigo-400 font-bold text-sm">
+        Initializing Workspace...
+      </div>
+    );
+  }
+
   return children;
 }
