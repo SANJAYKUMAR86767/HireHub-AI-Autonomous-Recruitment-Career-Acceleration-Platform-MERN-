@@ -28,6 +28,8 @@ import AiSkillCertification from "./pages/candidate/SkillCertification";
 import SalaryNegotiator from "./pages/candidate/SalaryNegotiator";
 import PortfolioRanker from "./pages/candidate/PortfolioRanker";
 import GlobalCompensation from "./pages/candidate/GlobalCompensation";
+import StarBehavioralCoach from "./pages/candidate/StarBehavioralCoach";
+import ChaosSystemSimulator from "./pages/candidate/ChaosSystemSimulator";
 
 // Recruiter Pages
 import RecruiterDashboard from "./pages/recruiter/Dashboard";
@@ -36,6 +38,8 @@ import Applicants from "./pages/recruiter/Applicants";
 import TalentRadar from "./pages/recruiter/TalentRadar";
 import RecruiterOutreachGenerator from "./pages/recruiter/RecruiterOutreachGenerator";
 import BatchCandidateScreener from "./pages/recruiter/BatchCandidateScreener";
+import BooleanSearchGenerator from "./pages/recruiter/BooleanSearchGenerator";
+import BlindResumeAuditor from "./pages/recruiter/BlindResumeAuditor";
 
 // Admin Pages
 import AdminDashboard from "./pages/admin/Dashboard";
@@ -86,6 +90,12 @@ export default function App() {
         <Route path="/candidate/global-compensation" element={
           <ProtectedRoute role="candidate"><GlobalCompensation /></ProtectedRoute>
         } />
+        <Route path="/candidate/star-coach" element={
+          <ProtectedRoute role="candidate"><StarBehavioralCoach /></ProtectedRoute>
+        } />
+        <Route path="/candidate/chaos-simulator" element={
+          <ProtectedRoute role="candidate"><ChaosSystemSimulator /></ProtectedRoute>
+        } />
         <Route path="/candidate/system-design-studio" element={
           <ProtectedRoute role="candidate"><SystemDesignStudio /></ProtectedRoute>
         } />
@@ -122,6 +132,12 @@ export default function App() {
         } />
         <Route path="/recruiter/batch-screener" element={
           <ProtectedRoute role="recruiter"><BatchCandidateScreener /></ProtectedRoute>
+        } />
+        <Route path="/recruiter/boolean-generator" element={
+          <ProtectedRoute role="recruiter"><BooleanSearchGenerator /></ProtectedRoute>
+        } />
+        <Route path="/recruiter/blind-resume" element={
+          <ProtectedRoute role="recruiter"><BlindResumeAuditor /></ProtectedRoute>
         } />
         <Route path="/recruiter/outreach-generator" element={
           <ProtectedRoute role="recruiter"><RecruiterOutreachGenerator /></ProtectedRoute>

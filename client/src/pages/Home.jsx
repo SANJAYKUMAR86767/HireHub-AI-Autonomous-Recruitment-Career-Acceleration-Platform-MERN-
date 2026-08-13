@@ -39,6 +39,8 @@ import {
   Terminal,
   GitBranch,
   Scale,
+  Activity,
+  EyeOff,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -154,6 +156,34 @@ const TOP_COMPANIES = [
 ];
 
 const ADVANCED_PLATFORM_FEATURES = [
+  {
+    title: "AI Behavioral STAR Storytelling Coach",
+    desc: "Interactive Amazon Leadership Principles & Google behavioral rubric with real-time STAR scoring.",
+    icon: Star,
+    color: "from-amber-500 to-orange-600",
+    link: "/candidate/star-coach",
+  },
+  {
+    title: "Distributed Chaos & Self-Healing Sandbox",
+    desc: "Inject infrastructure failures (Redis outage, DDoS, DB partitions) and stress-test circuit breakers.",
+    icon: Activity,
+    color: "from-rose-500 to-red-600",
+    link: "/candidate/chaos-simulator",
+  },
+  {
+    title: "AI Boolean Search & Talent X-Ray",
+    desc: "Generate production Boolean query strings and launch 1-click candidate search across LinkedIn & GitHub.",
+    icon: Search,
+    color: "from-indigo-600 to-purple-600",
+    link: "/recruiter/boolean-generator",
+  },
+  {
+    title: "AI Blind Resume & Bias Shield",
+    desc: "Anonymize candidate demographic tags while highlighting pure verified technical achievements.",
+    icon: EyeOff,
+    color: "from-emerald-600 to-teal-600",
+    link: "/recruiter/blind-resume",
+  },
   {
     title: "AI Salary & Offer Negotiation Studio",
     desc: "Interactive AI HR persona simulator with 1-click tactical counter-offer scripts and equity lift calculators.",
