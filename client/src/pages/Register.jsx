@@ -20,35 +20,122 @@ export default function Register() {
   };
 
   return (
-    <div className="max-w-sm mx-auto px-4 py-16">
-      <h1 className="text-xl font-bold mb-6">Create your HireHub account</h1>
-      <form onSubmit={submit} className="space-y-3">
-        <div className="flex gap-2 mb-2">
-          <button type="button"
-            onClick={() => setForm({ ...form, role: "candidate" })}
-            className={`flex-1 py-2 rounded-md text-sm border ${form.role === "candidate" ? "bg-brand-600 text-white" : "bg-white text-gray-600"}`}
-          >Candidate</button>
-          <button type="button"
-            onClick={() => setForm({ ...form, role: "recruiter" })}
-            className={`flex-1 py-2 rounded-md text-sm border ${form.role === "recruiter" ? "bg-brand-600 text-white" : "bg-white text-gray-600"}`}
-          >Recruiter</button>
+    <div className="max-w-md mx-auto px-4 py-12 relative">
+      {/* Background Glow Blobs */}
+      <div className="absolute -top-12 -left-12 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl -z-10 animate-pulse pointer-events-none" />
+      <div className="absolute -bottom-12 -right-12 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl -z-10 animate-pulse pointer-events-none" />
+
+      <div className="glass-panel glow-indigo rounded-3xl p-8 text-white shadow-2xl">
+        <div className="text-center mb-6">
+          <h1 className="text-2xl font-black">Create your account</h1>
+          <p className="text-xs text-slate-400 mt-1">Get started with HireHub autonomous AI recruitment workspace</p>
         </div>
-        <input required placeholder="Full name" className="w-full border rounded-md px-3 py-2 text-sm"
-          value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
-        <input required type="email" placeholder="Email" className="w-full border rounded-md px-3 py-2 text-sm"
-          value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
-        <input required type="password" placeholder="Password (min 6 chars)" className="w-full border rounded-md px-3 py-2 text-sm"
-          value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
-        {form.role === "recruiter" && (
-          <input placeholder="Company name" className="w-full border rounded-md px-3 py-2 text-sm"
-            value={form.companyName} onChange={(e) => setForm({ ...form, companyName: e.target.value })} />
-        )}
-        {error && <p className="text-red-600 text-sm">{error}</p>}
-        <button className="w-full bg-brand-600 text-white py-2 rounded-md text-sm">Sign up</button>
-      </form>
-      <p className="text-sm text-gray-500 mt-4">
-        Already have an account? <Link to="/login" className="text-brand-600">Log in</Link>
-      </p>
+
+        <form onSubmit={submit} className="space-y-4">
+          <div>
+            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
+              Select Your Role
+            </label>
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => setForm({ ...form, role: "candidate" })}
+                className={`flex-1 py-2 rounded-xl text-xs font-bold border transition ${
+                  form.role === "candidate"
+                    ? "bg-indigo-600 text-white border-indigo-500"
+                    : "bg-slate-950 text-slate-400 border-slate-800 hover:bg-slate-900"
+                }`}
+              >
+                Candidate
+              </button>
+              <button
+                type="button"
+                onClick={() => setForm({ ...form, role: "recruiter" })}
+                className={`flex-1 py-2 rounded-xl text-xs font-bold border transition ${
+                  form.role === "recruiter"
+                    ? "bg-indigo-600 text-white border-indigo-500"
+                    : "bg-slate-950 text-slate-400 border-slate-800 hover:bg-slate-900"
+                }`}
+              >
+                Recruiter
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
+              Full Name
+            </label>
+            <input
+              required
+              placeholder="e.g. Aarav Sharma"
+              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+              value={form.name}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
+            />
+          </div>
+
+          <div>
+            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
+              Email Address
+            </label>
+            <input
+              required
+              type="email"
+              placeholder="name@example.com"
+              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+              value={form.email}
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
+            />
+          </div>
+
+          <div>
+            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
+              Password
+            </label>
+            <input
+              required
+              type="password"
+              placeholder="Minimum 6 characters"
+              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+              value={form.password}
+              onChange={(e) => setForm({ ...form, password: e.target.value })}
+            />
+          </div>
+
+          {form.role === "recruiter" && (
+            <div>
+              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
+                Company Name
+              </label>
+              <input
+                required
+                placeholder="e.g. Acme Tech Solutions"
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                value={form.companyName}
+                onChange={(e) => setForm({ ...form, companyName: e.target.value })}
+              />
+            </div>
+          )}
+
+          {error && (
+            <div className="p-3 bg-rose-500/20 text-rose-300 border border-rose-500/30 rounded-xl text-xs font-semibold">
+              {error}
+            </div>
+          )}
+
+          <button className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-extrabold py-3 rounded-xl text-xs transition shadow-md shadow-indigo-500/20">
+            Sign Up
+          </button>
+        </form>
+
+        <p className="text-xs text-slate-400 text-center mt-6">
+          Already have an account?{" "}
+          <Link to="/login" className="text-indigo-400 font-bold hover:underline">
+            Log in
+          </Link>
+        </p>
+      </div>
     </div>
   );
 }

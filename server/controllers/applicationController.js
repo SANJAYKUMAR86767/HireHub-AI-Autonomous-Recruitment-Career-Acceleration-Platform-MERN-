@@ -1,6 +1,7 @@
 const Application = require("../models/Application");
 const Job = require("../models/Job");
 const User = require("../models/User");
+const Notification = require("../models/Notification");
 const { analyzeMatch } = require("../utils/aiMatch");
 const { sendMail } = require("../utils/mailer");
 const { invalidateJobsCache } = require("../utils/cache");
@@ -21,6 +22,15 @@ const applyToJob = async (req, res) => {
       aiScore: score,
       matchedSkills,
       missingSkills,
+    });
+
+    // Create Recruiter Notification
+    await Notification.create({
+      recipient: job.recruiterId._id || job.recruiterId,
+      title: "New Application Received",
+      desc: `${candidate.name} applied to your job "${job.title}" — AI match score: ${score}%.`,
+      type: "apply",
+      link: `/recruiter/jobs/${job._id}/applicants`,
     });
 
     sendMail({
@@ -68,6 +78,14 @@ const updateApplicationStatus = async (req, res) => {
   await app.save();
 
   if (status) {
+    await Notification.create({
+      recipient: app.candidateId._id || app.candidateId,
+      title: "Application Status Update",
+      desc: `Your application status for "${app.jobId.title}" is now "${status}".`,
+      type: "status_change",
+      link: "/candidate/applications",
+    });
+
     sendMail({
       to: app.candidateId.email,
       subject: `Update on your application: ${app.jobId.title}`,
@@ -78,4 +96,19 @@ const updateApplicationStatus = async (req, res) => {
   res.json(app);
 };
 
-module.exports = { applyToJob, getMyApplications, getApplicantsForJob, updateApplicationStatus };
+const getRecruiterInterviews = async (req, res) => {
+  try {
+    const jobs = await Job.find({ recruiterId: req.user.id }).select("_id");
+    const jobIds = jobs.map((j) => j._id);
+
+    const apps = await Application.find({ jobId: { $in: jobIds }, status: "interview" })
+      .populate("candidateId", "name email")
+      .populate("jobId", "title company");
+
+    res.json(apps);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+module.exports = { applyToJob, getMyApplications, getApplicantsForJob, updateApplicationStatus, getRecruiterInterviews };

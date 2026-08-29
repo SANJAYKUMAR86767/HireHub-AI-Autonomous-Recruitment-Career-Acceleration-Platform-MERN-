@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema(
     email: { type: String, required: true, unique: true, lowercase: true, trim: true },
     password: { type: String, required: true, minlength: 6 },
     role: { type: String, enum: ["candidate", "recruiter", "admin"], default: "candidate" },
-
+    location: { type: String },
     skills: [{ type: String }],
     experience: [
       { title: String, company: String, years: Number },
@@ -20,6 +20,7 @@ const userSchema = new mongoose.Schema(
     companyName: { type: String },
     companyVerified: { type: Boolean, default: false },
     blocked: { type: Boolean, default: false },
+    savedJobs: [{ type: mongoose.Schema.Types.ObjectId, ref: "Job" }],
 
     resumeBuilder: {
       template: { type: String, enum: ["modern", "classic", "minimal"], default: "modern" },

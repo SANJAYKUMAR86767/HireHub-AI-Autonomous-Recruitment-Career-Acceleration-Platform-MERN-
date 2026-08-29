@@ -81,10 +81,10 @@ export default function ResumeBuilder() {
         <div>
           <div className="flex items-center space-x-2 text-indigo-600 text-xs font-bold uppercase tracking-wider mb-1">
             <Sparkles className="w-4 h-4 text-amber-500" />
-            <span>AI Powered PDF Generator</span>
+            <span>HireHub AI Resume Engineering</span>
           </div>
-          <h1 className="text-2xl font-bold text-slate-900">Smart Resume Studio</h1>
-          <p className="text-xs text-slate-500 mt-0.5">Build ATS-optimized resumes with real-time live preview templates</p>
+          <h1 className="text-2xl font-bold text-slate-900">HireHub AI Resume Builder</h1>
+          <p className="text-xs text-slate-500 mt-0.5 font-sans">Build ATS-optimized resumes with real-time live preview templates</p>
         </div>
         <div className="flex items-center space-x-3 w-full sm:w-auto">
           <button

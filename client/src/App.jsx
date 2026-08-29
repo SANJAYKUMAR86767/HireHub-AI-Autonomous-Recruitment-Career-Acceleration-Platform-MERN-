@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AiCopilotDrawer from "./components/AiCopilotDrawer";
 import Home from "./pages/Home";
+import Jobs from "./pages/Jobs";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import JobDetail from "./pages/JobDetail";
@@ -33,13 +34,22 @@ import ChaosSystemSimulator from "./pages/candidate/ChaosSystemSimulator";
 import VideoTelemetryStudio from "./pages/candidate/VideoTelemetryStudio";
 import SkillMatrixGapAnalyzer from "./pages/candidate/SkillMatrixGapAnalyzer";
 import InmailPitchGenerator from "./pages/candidate/InmailPitchGenerator";
+import AIInterviewChat from "./pages/candidate/AIInterviewChat";
+import AILearningHub from "./pages/candidate/AILearningHub";
+import SavedJobs from "./pages/candidate/SavedJobs";
+import CandidateProfile from "./pages/candidate/Profile";
+import CandidateNotifications from "./pages/candidate/Notifications";
+import CandidateInterviews from "./pages/candidate/Interviews";
 
 // Recruiter Pages
 import RecruiterDashboard from "./pages/recruiter/Dashboard";
 import PostJob from "./pages/recruiter/PostJob";
+import RecruiterProfile from "./pages/recruiter/Profile";
+import RecruiterJobs from "./pages/recruiter/Jobs";
 import Applicants from "./pages/recruiter/Applicants";
 import TalentRadar from "./pages/recruiter/TalentRadar";
 import RecruiterOutreachGenerator from "./pages/recruiter/RecruiterOutreachGenerator";
+import RecruiterInterviews from "./pages/recruiter/Interviews";
 import BatchCandidateScreener from "./pages/recruiter/BatchCandidateScreener";
 import BooleanSearchGenerator from "./pages/recruiter/BooleanSearchGenerator";
 import BlindResumeAuditor from "./pages/recruiter/BlindResumeAuditor";
@@ -49,6 +59,7 @@ import AutonomousRecruiterAgent from "./pages/recruiter/AutonomousRecruiterAgent
 import AdminDashboard from "./pages/admin/Dashboard";
 import AdminUsers from "./pages/admin/Users";
 import AdminJobs from "./pages/admin/Jobs";
+import AdminCompanies from "./pages/admin/Companies";
 
 import RoleQuickSwitcher from "./components/RoleQuickSwitcher";
 
@@ -60,6 +71,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/jobs" element={<Jobs />} />
         <Route path="/jobs/:id" element={<JobDetail />} />
         <Route path="/chat/:userId" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
 
@@ -67,8 +79,20 @@ export default function App() {
         <Route path="/candidate/dashboard" element={
           <ProtectedRoute role="candidate"><CandidateDashboard /></ProtectedRoute>
         } />
+        <Route path="/candidate/profile" element={
+          <ProtectedRoute role="candidate"><CandidateProfile /></ProtectedRoute>
+        } />
         <Route path="/candidate/applications" element={
           <ProtectedRoute role="candidate"><MyApplications /></ProtectedRoute>
+        } />
+        <Route path="/candidate/saved-jobs" element={
+          <ProtectedRoute role="candidate"><SavedJobs /></ProtectedRoute>
+        } />
+        <Route path="/candidate/notifications" element={
+          <ProtectedRoute role="candidate"><CandidateNotifications /></ProtectedRoute>
+        } />
+        <Route path="/candidate/interviews" element={
+          <ProtectedRoute role="candidate"><CandidateInterviews /></ProtectedRoute>
         } />
         <Route path="/candidate/interview-prep" element={
           <ProtectedRoute role="candidate"><InterviewPrep /></ProtectedRoute>
@@ -129,13 +153,31 @@ export default function App() {
         <Route path="/candidate/certification" element={
           <ProtectedRoute role="candidate"><AiSkillCertification /></ProtectedRoute>
         } />
+        <Route path="/candidate/ai-chat" element={
+          <ProtectedRoute role="candidate"><AIInterviewChat /></ProtectedRoute>
+        } />
+        <Route path="/candidate/learning-hub" element={
+          <ProtectedRoute role="candidate"><AILearningHub /></ProtectedRoute>
+        } />
 
         {/* Recruiter Routes */}
         <Route path="/recruiter/dashboard" element={
           <ProtectedRoute role="recruiter"><RecruiterDashboard /></ProtectedRoute>
         } />
+        <Route path="/recruiter/applications" element={
+          <ProtectedRoute role="recruiter"><RecruiterDashboard /></ProtectedRoute>
+        } />
         <Route path="/recruiter/post-job" element={
           <ProtectedRoute role="recruiter"><PostJob /></ProtectedRoute>
+        } />
+        <Route path="/recruiter/create-job" element={
+          <ProtectedRoute role="recruiter"><PostJob /></ProtectedRoute>
+        } />
+        <Route path="/recruiter/profile" element={
+          <ProtectedRoute role="recruiter"><RecruiterProfile /></ProtectedRoute>
+        } />
+        <Route path="/recruiter/jobs" element={
+          <ProtectedRoute role="recruiter"><RecruiterJobs /></ProtectedRoute>
         } />
         <Route path="/recruiter/jobs/:jobId/applicants" element={
           <ProtectedRoute role="recruiter"><Applicants /></ProtectedRoute>
@@ -158,6 +200,9 @@ export default function App() {
         <Route path="/recruiter/outreach-generator" element={
           <ProtectedRoute role="recruiter"><RecruiterOutreachGenerator /></ProtectedRoute>
         } />
+        <Route path="/recruiter/interviews" element={
+          <ProtectedRoute role="recruiter"><RecruiterInterviews /></ProtectedRoute>
+        } />
 
         {/* Admin Routes */}
         <Route path="/admin/dashboard" element={
@@ -168,6 +213,9 @@ export default function App() {
         } />
         <Route path="/admin/jobs" element={
           <ProtectedRoute role="admin"><AdminJobs /></ProtectedRoute>
+        } />
+        <Route path="/admin/companies" element={
+          <ProtectedRoute role="admin"><AdminCompanies /></ProtectedRoute>
         } />
       </Routes>
 

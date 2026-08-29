@@ -57,18 +57,39 @@ export default function AiCopilotDrawer() {
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (err) {
       const lower = textToSend.toLowerCase();
-      let reply = "Here are tailored recommendations from your AI Career Copilot:\n\n1. **Quantify Results**: Format your bullet points using the Google XYZ formula: *'Accomplished [X] as measured by [Y] by doing [Z]'*.\n2. **System Reliability**: Emphasize latency improvements, p99 reductions, and automated testing.\n3. **Live Mock Practice**: Use our **Live Mock Video Studio** to practice answering under real-time audio analysis.";
-      let chips = ["STAR Behavioral Guide", "Salary Negotiation Script", "System Design Checklist"];
+      let reply = "";
+      let chips = [];
 
-      if (lower.includes("star") || lower.includes("behavior")) {
+      if (lower.includes("star") || lower.includes("behavior") || lower.includes("conflict")) {
         reply = "### ⭐ STAR Behavioral Framework for Senior Engineers:\n- **Situation**: Contextualize the business problem (e.g. 'Our checkout API experienced 15% latency degradation under peak Cyber Monday traffic').\n- **Task**: The explicit technical objective you owned (e.g. 'I was tasked with diagnosing the bottleneck and restoring sub-100ms response times').\n- **Action**: The specific architectural solutions you led (e.g. 'I profiled the PostgreSQL queries, introduced Redis cache-aside, and decoupled notification webhooks with Kafka').\n- **Result**: Quantifiable business outcome (e.g. 'P99 latency dropped by 65%, handling 25,000 QPS with 0 dropped orders').";
         chips = ["Salary Negotiation Script", "System Design Checklist"];
       } else if (lower.includes("salary") || lower.includes("negotiat") || lower.includes("offer")) {
-        reply = "### 💼 Senior Executive Counter-Offer Script:\n*'Thank you for extending this offer. I am genuinely excited about the architectural challenges at your company. Based on current market percentiles and the level of technical ownership for this role, I am targeting a base of ₹X LPA (or $Y) with an updated equity grant of Z. If we can reach this alignment, I am ready to sign immediately.'*";
+        reply = "### 💼 Senior Executive Counter-Offer Script:\n*'Thank you for extending this offer. I am genuinely excited about the architectural challenges at your company. Based on current market benchmarks and the level of technical ownership for this role, I am targeting a base of ₹28-32 LPA with an updated equity grant. If we can reach this alignment, I am ready to sign immediately.'*";
         chips = ["Check Offer Analyzer", "STAR Behavioral Guide"];
       } else if (lower.includes("system") || lower.includes("design") || lower.includes("architect")) {
         reply = "### 🏗️ Distributed System Design Checklist:\n1. **Edge**: Cloudflare CDN for static asset caching & DDoS absorption.\n2. **Routing**: Envoy / Nginx Load Balancer with SSL termination & health checks.\n3. **Caching**: Redis Cache-Aside with TTL expirations for 80% read reduction.\n4. **Decoupling**: Apache Kafka event streaming for asynchronous burst processing.\n5. **Persistence**: Sharded PostgreSQL/MongoDB with Read Replicas & PgBouncer pooling.";
         chips = ["Launch System Design Studio", "Check Tech Trends"];
+      } else if (lower.includes("react") || lower.includes("hook") || lower.includes("virtual dom") || lower.includes("frontend")) {
+        reply = "### ⚛️ React.js Core & Virtual DOM Architecture\n\n**1. How Virtual DOM Works:**\n- React creates a lightweight **Virtual DOM (VDOM)** in-memory.\n- When state changes, a new VDOM tree is created and compared with the old one using a **Diffing Algorithm**.\n- It computes the minimal set of changes and batches updates to the real DOM.\n\n**2. Core React Hooks:**\n- `useState`: Manages local component state.\n- `useEffect`: Handles side effects (data fetching, subscriptions) with dependency arrays.\n- `useMemo` & `useCallback`: Optimizes performance by memoizing computed values and function instances respectively.";
+        chips = ["Run Coding Sandbox", "Check Skill Certifications", "STAR Method Guide"];
+      } else if (lower.includes("javascript") || lower.includes("js") || lower.includes("closure") || lower.includes("async") || lower.includes("promise") || lower.includes("event loop")) {
+        reply = "### ⚡ JavaScript (ES6+) Core Fundamentals\n\n**1. Closures:**\n- A closure is the combination of a function bundled together with references to its surrounding state (the lexical environment).\n- It allows an inner function to access variables from an outer function's scope even after the outer function has finished executing.\n\n**2. Event Loop & Async JS:**\n- JS is single-threaded. It uses the **Call Stack**, **Web APIs**, **Callback Queue**, and **Microtask Queue** to execute async code. Microtasks (Promises) have higher priority and run first.";
+        chips = ["Run JS in Sandbox", "Check JS Certification", "STAR Method Guide"];
+      } else if (lower.includes("oops") || lower.includes("oop") || lower.includes("polymorphism") || lower.includes("inheritance") || lower.includes("encapsulation") || lower.includes("abstraction")) {
+        reply = "### 🏗️ Object-Oriented Programming (OOPs) Core Pillars\n\n**1. Abstraction:** Hiding background details and exposing only the essential features.\n**2. Encapsulation:** Binding data (variables) and methods together and restricting direct access using private modifiers.\n**3. Inheritance:** Mechanism where one class acquires parent class properties.\n**4. Polymorphism:** Method Overloading (Compile-time) and Method Overriding (Run-time).";
+        chips = ["Practice Mock Interview", "Compare Languages"];
+      } else if (lower.includes("dbms") || lower.includes("sql") || lower.includes("mongodb") || lower.includes("postgresql") || lower.includes("acid") || lower.includes("index") || lower.includes("join") || lower.includes("database")) {
+        reply = "### 🗄️ Database Management Systems & SQL vs NoSQL\n\n**1. ACID Properties:** Atomicity, Consistency, Isolation, and Durability ensure transaction safety.\n**2. SQL vs NoSQL:** SQL is schema-based, table-structured, and transactional (PostgreSQL). NoSQL is schema-less, document/key-value store, horizontally scalable (MongoDB).\n**3. Database Indexing:** Speeds up search queries (using B-Trees) at the cost of slightly slower writes.";
+        chips = ["Run SQL Sandbox", "Compare DB Engines"];
+      } else if (lower.includes("dsa") || lower.includes("complexity") || lower.includes("binary search") || lower.includes("graph") || lower.includes("sorting") || lower.includes("dynamic programming") || lower.includes("dp")) {
+        reply = "### 🚀 Data Structures & Algorithmic Blueprint\n\n**1. Time Complexity Cheat Sheet:**\n- O(1): Hash map lookup.\n- O(log N): Binary Search.\n- O(N): Array traversal.\n- O(N log N): MergeSort/QuickSort.\n- O(N²): Nested loops.\n\n**2. Key Solving Patterns:** Two Pointers (sorted arrays), Sliding Window (contiguous subarrays), and DFS/BFS (graph traversal).";
+        chips = ["Run Code Sandbox", "Check DSA Certification"];
+      } else if (lower.includes("placement") || lower.includes("job") || lower.includes("internship") || lower.includes("off-campus") || lower.includes("prepare") || lower.includes("interview")) {
+        reply = "### 💼 Off-Campus Placements Emergency Action Plan\n\n**1. Daily Routine:** Solve 2-3 Medium LeetCode problems (Arrays, Hashing, Trees) and work 1 hour on web development.\n**2. Resume:** Make a 1-page clean resume. Highlight LeetCode count and MERN projects.\n**3. Applying:** Use Instahyre and Cuvette to apply directly to tech startups.";
+        chips = ["Open Resume Builder", "Check Skill Certifications"];
+      } else {
+        reply = `### 🤖 HireHub AI Copilot Intelligence\n\nRegarding your question: **"${textToSend}"**\n\n1. **Core Concept:** To approach this, you must understand the underlying system or design constraints. Ensure your solution is modular.\n2. **Implementation:** Prioritize readability, clean OOP patterns, and proper error-handling.\n3. **Interview Presentation:** Start with the high-level architecture, discuss trade-offs, and then present the final optimal code.`;
+        chips = ["STAR Method Guide", "Salary Negotiation Script", "System Design Checklist"];
       }
 
       setMessages((prev) => [

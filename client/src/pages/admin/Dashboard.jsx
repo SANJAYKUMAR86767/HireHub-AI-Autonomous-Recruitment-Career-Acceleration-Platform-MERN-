@@ -121,20 +121,27 @@ export default function AdminDashboard() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-3 gap-3">
             <Link
               to="/admin/jobs"
-              className="p-3.5 bg-slate-900 hover:bg-slate-800 text-white rounded-2xl text-xs font-bold transition flex items-center justify-between shadow-sm"
+              className="p-3 bg-slate-900 hover:bg-slate-800 text-white rounded-2xl text-[11px] font-bold transition flex items-center justify-between shadow-sm"
             >
-              <span>Scan Flagged Jobs</span>
-              <ArrowUpRight className="w-4 h-4" />
+              <span>Jobs</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
             <Link
               to="/admin/users"
-              className="p-3.5 bg-purple-50 hover:bg-purple-100 text-purple-800 rounded-2xl text-xs font-bold transition flex items-center justify-between border border-purple-200"
+              className="p-3 bg-purple-50 hover:bg-purple-100 text-purple-800 rounded-2xl text-[11px] font-bold transition flex items-center justify-between border border-purple-200"
             >
-              <span>Manage User Roles</span>
-              <ArrowUpRight className="w-4 h-4" />
+              <span>Users</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </Link>
+            <Link
+              to="/admin/companies"
+              className="p-3 bg-emerald-55 hover:bg-emerald-100 text-emerald-800 rounded-2xl text-[11px] font-bold transition flex items-center justify-between border border-emerald-200"
+            >
+              <span>Companies</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
           </div>
         </div>

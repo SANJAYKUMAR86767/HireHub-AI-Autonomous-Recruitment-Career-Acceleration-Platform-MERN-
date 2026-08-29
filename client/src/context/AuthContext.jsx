@@ -6,7 +6,7 @@ const AuthContext = createContext(null);
 
 export const DEMO_USERS = {
   candidate: {
-    _id: "cand-demo-1",
+    _id: "65ef49b80000000000000001",
     name: "Aarav Sharma",
     email: "aarav.sharma@example.com",
     role: "candidate",
@@ -14,14 +14,14 @@ export const DEMO_USERS = {
     resumeUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
   },
   recruiter: {
-    _id: "rec-demo-1",
+    _id: "65ef49b80000000000000002",
     name: "Sarah Jenkins",
     email: "sarah.jenkins@techcorp.com",
     role: "recruiter",
     company: "TechCorp Global & Cloud Partner",
   },
   admin: {
-    _id: "admin-demo-1",
+    _id: "65ef49b80000000000000003",
     name: "Executive Platform Admin",
     email: "admin@hirehub.dev",
     role: "admin",

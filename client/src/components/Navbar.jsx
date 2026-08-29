@@ -50,7 +50,7 @@ export default function Navbar() {
         {/* Center / Navigation Links */}
         <div className="hidden md:flex items-center space-x-1 text-xs font-semibold text-slate-300">
           <Link
-            to="/"
+            to="/jobs"
             className="hover:text-white px-3 py-2 rounded-xl hover:bg-slate-900 transition"
           >
             Explore Jobs
@@ -136,6 +136,13 @@ export default function Navbar() {
 
           {user?.role === "candidate" && (
             <>
+              <Link
+                to="/candidate/profile"
+                className="hidden sm:flex text-slate-300 hover:text-white px-2.5 py-2 rounded-xl hover:bg-slate-900 transition items-center space-x-1"
+              >
+                <User className="w-3.5 h-3.5 text-indigo-400" />
+                <span>My Profile</span>
+              </Link>
               <Link
                 to="/candidate/applications"
                 className="hidden sm:flex text-slate-300 hover:text-white px-2.5 py-2 rounded-xl hover:bg-slate-900 transition items-center space-x-1"

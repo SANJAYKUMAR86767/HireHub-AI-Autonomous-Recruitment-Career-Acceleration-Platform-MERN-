@@ -104,7 +104,7 @@ export default function ResumeAuditor() {
           </Link>
           <div className="flex items-center space-x-2">
             <h1 className="text-2xl font-black text-slate-900 dark:text-white">
-              AI ATS Resume Deep Auditor & Bullet Transformer
+              HireHub AI ATS Resume Auditor & Bullet Transformer
             </h1>
             <span className="bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 text-xs font-extrabold px-2.5 py-0.5 rounded-full flex items-center gap-1">
               <Sparkles className="w-3.5 h-3.5 text-amber-400" />

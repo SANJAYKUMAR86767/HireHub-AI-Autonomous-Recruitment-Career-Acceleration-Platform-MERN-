@@ -7,6 +7,7 @@ const {
   analyzeLiveInterview,
   getCareerRoadmaps,
   getNotifications,
+  markNotificationRead,
   analyzeJobOffer,
   auditResumeContent,
   evaluateSystemArchitecture,
@@ -37,6 +38,7 @@ router.get("/career-roadmaps", getCareerRoadmaps);
 
 // Real-Time Notification Center Feed
 router.get("/notifications", protect, getNotifications);
+router.put("/notifications/:id/read", protect, markNotificationRead);
 
 // Phase 2 Advanced Endpoints
 router.post("/offer-analyzer", protect, analyzeJobOffer);

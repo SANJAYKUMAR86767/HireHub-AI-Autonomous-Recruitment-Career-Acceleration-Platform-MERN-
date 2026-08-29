@@ -1,6 +1,7 @@
 const Job = require("../models/Job");
 const Application = require("../models/Application");
 const User = require("../models/User");
+const Notification = require("../models/Notification");
 
 // AI Smart Recommended Jobs for Candidate based on Skills & History
 const getRecommendedJobs = async (req, res) => {
@@ -44,6 +45,15 @@ const scheduleInterviewSlot = async (req, res) => {
 
     const jobTitle = application.jobId?.title || "Job Role";
     const company = application.jobId?.company || application.jobId?.companyName || "HireHub Partner";
+
+    // Create Candidate Notification
+    await Notification.create({
+      recipient: application.candidateId._id || application.candidateId,
+      title: "Interview Scheduled 📅",
+      desc: `Interview scheduled for "${jobTitle}" at ${company} on ${new Date(interviewDate).toLocaleString()}.`,
+      type: "interview",
+      link: "/candidate/dashboard",
+    });
 
     const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
       `Interview: ${jobTitle} at ${company}`
@@ -241,8 +251,94 @@ const askAiCopilot = async (req, res) => {
         const reply = response.content[0]?.text || "Here is how to approach this:";
         return res.json({ reply, source: "claude" });
       } catch (e) {
-        console.warn("Anthropic API failed, falling back to smart engine:", e.message);
+        console.warn("Anthropic API failed, checking other providers:", e.message);
       }
+    }
+
+    // Check if Gemini is available
+    if (process.env.GEMINI_API_KEY) {
+      try {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            contents: [
+              {
+                parts: [
+                  {
+                    text: `You are HireHub Copilot, an elite AI Career Coach and Tech Recruiting Expert. Answer the candidate or recruiter's prompt concisely with actionable bullets, exact phrasing, or code examples if requested.\n\nContext: ${JSON.stringify(context || {})}\n\nPrompt: ${prompt}`
+                  }
+                ]
+              }
+            ]
+          })
+        });
+        const data = await response.json();
+        const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (reply) {
+          return res.json({ reply, source: "gemini" });
+        }
+      } catch (e) {
+        console.warn("Gemini API failed, checking other providers:", e.message);
+      }
+    }
+
+    // Check if OpenAI is available
+    if (process.env.OPENAI_API_KEY) {
+      try {
+        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
+          },
+          body: JSON.stringify({
+            model: 'gpt-3.5-turbo',
+            messages: [
+              {
+                role: 'system',
+                content: `You are HireHub Copilot, an elite AI Career Coach and Tech Recruiting Expert. Answer the candidate or recruiter's prompt concisely with actionable bullets, exact phrasing, or code examples if requested.\n\nContext: ${JSON.stringify(context || {})}`
+              },
+              {
+                role: 'user',
+                content: prompt
+              }
+            ]
+          })
+        });
+        const data = await response.json();
+        const reply = data.choices?.[0]?.message?.content;
+        if (reply) {
+          return res.json({ reply, source: "openai" });
+        }
+      } catch (e) {
+        console.warn("OpenAI API failed, checking other providers:", e.message);
+      }
+    }
+
+    // Check if this is an Interview Chatbot Arena request
+    if (lowerPrompt.includes("interviewer") || lowerPrompt.includes("candidate") || lowerPrompt.includes("mock job interview")) {
+      let reply = "";
+      const lastMsgMatch = prompt.match(/Candidate says: "(.*)"/i);
+      const lastMsg = lastMsgMatch ? lastMsgMatch[1].toLowerCase() : "";
+
+      if (!lastMsg || lastMsg.includes("introduce") || lastMsg.includes("hello") || lastMsg.includes("hi ") || lastMsg.length < 15) {
+        reply = "Nice to meet you. Let's start with your technical portfolio. Can you describe the system architecture of the most challenging project you've worked on recently?";
+      } else if (lastMsg.includes("react") || lastMsg.includes("frontend") || lastMsg.includes("hooks") || lastMsg.includes("state")) {
+        reply = "That is a solid approach. How do you handle performance bottleneck issues in React, such as unnecessary re-renders, and when would you choose Context API versus Redux/Zustand?";
+      } else if (lastMsg.includes("database") || lastMsg.includes("mongodb") || lastMsg.includes("sql") || lastMsg.includes("index") || lastMsg.includes("acid")) {
+        reply = "Excellent. Database performance is critical. When scaling transaction systems, how do you decide between vertical scaling and horizontal sharding, and how do database indexes affect read vs write operations?";
+      } else if (lastMsg.includes("system design") || lastMsg.includes("microservice") || lastMsg.includes("scale") || lastMsg.includes("kafka") || lastMsg.includes("cache")) {
+        reply = "Understood. Distributed systems present unique challenges. How do you handle state synchronization and transactional consistency across multiple decoupled microservices?";
+      } else if (lastMsg.includes("conflict") || lastMsg.includes("team") || lastMsg.includes("star") || lastMsg.includes("problem")) {
+        reply = "That displays good leadership maturity. How do you approach a situation where your product manager pushes for an aggressive timeline, but your engineering team advocates for refactoring technical debt?";
+      } else {
+        reply = "Understood. Let's dive deeper: what were the core engineering trade-offs you had to consider for this decision, and how did you verify the scalability of this implementation?";
+      }
+
+      return res.json({ reply, source: "hirehub-interviewer-engine" });
     }
 
     // Intelligent context-aware rule engine responses
@@ -309,16 +405,125 @@ const askAiCopilot = async (req, res) => {
    - Cache Strategy (Cache-Aside with Redis, TTL, LRU eviction)
    - Async Processing (Kafka / RabbitMQ for event fan-out)`;
       actionChips = ["Open Coding Sandbox", "Practice System Design", "Explore Staff Roadmap"];
+    } else if (lowerPrompt.includes("react") || lowerPrompt.includes("hook") || lowerPrompt.includes("virtual dom") || lowerPrompt.includes("frontend")) {
+      reply = `### ⚛️ React.js Core & Virtual DOM Architecture
+
+**1. How Virtual DOM Works:**
+- Instead of directly manipulating the slow browser DOM, React creates a lightweight **Virtual DOM (VDOM)** in-memory (represented as a JavaScript object tree).
+- When state changes, a new VDOM tree is created.
+- React performs **Reconciliation (Diffing Algorithm)** to compare the new VDOM with the old one.
+- It computes the minimal set of changes and batches updates to the real DOM (via a process called **Patching**).
+
+**2. Core React Hooks:**
+- \`useState\`: Manages local component state.
+- \`useEffect\`: Handles side effects (data fetching, subscriptions) with dependency arrays.
+- \`useMemo\` & \`useCallback\`: Optimizes performance by memoizing computed values and function instances respectively, preventing useless re-renders.
+
+**3. State Management Best Practices:**
+- Keep state local where possible.
+- Use **React Context API** for global read-only data (e.g., Theme, Auth context).
+- Use **Redux Toolkit** or **Zustand** for high-frequency, complex state synchronization across independent pages.`;
+      actionChips = ["Open Coding Sandbox", "Check Skill Certifications", "Explore Frontend Trends"];
+    } else if (lowerPrompt.includes("javascript") || lowerPrompt.includes("js") || lowerPrompt.includes("closure") || lowerPrompt.includes("async") || lowerPrompt.includes("promise") || lowerPrompt.includes("event loop")) {
+      reply = `### ⚡ JavaScript (ES6+) Core Fundamentals
+
+**1. Closures:**
+- A closure is the combination of a function bundled together with references to its surrounding state (the **lexical environment**).
+- It allows an inner function to access variables from an outer function's scope even after the outer function has finished executing.
+\`\`\`javascript
+function outer() {
+  let counter = 0;
+  return function inner() {
+    counter++;
+    return counter;
+  };
+}
+const increment = outer();
+console.log(increment()); // 1
+console.log(increment()); // 2
+\`\`\`
+
+**2. Event Loop & Asynchronous execution:**
+- JS is single-threaded. It uses the **Call Stack**, **Web APIs**, **Callback Queue (Macrotasks)**, and **Microtask Queue (Promises)** to execute async code.
+- **Microtasks** (Promises, \`.then()\`) have higher priority and are executed completely before the next Macrotask (like \`setTimeout\`) is processed.`;
+      actionChips = ["Run JS in Sandbox", "Check JS Certification", "STAR Method Guide"];
+    } else if (lowerPrompt.includes("oops") || lowerPrompt.includes("oop") || lowerPrompt.includes("polymorphism") || lowerPrompt.includes("inheritance") || lowerPrompt.includes("encapsulation") || lowerPrompt.includes("abstraction")) {
+      reply = `### 🏗️ Object-Oriented Programming (OOPs) Core Pillars
+
+**1. Abstraction:**
+- Hiding background details and exposing only the essential features to the user. E.g., Abstract classes or Interfaces in C++/Java.
+
+**2. Encapsulation:**
+- Binding data (variables) and methods together into a single unit (class) and restricting direct access using access modifiers (\`private\`, \`protected\`).
+
+**3. Inheritance:**
+- Mechanism where one class acquires the properties and behaviors of a parent class. Promotes code reusability.
+
+**4. Polymorphism (Many Forms):**
+- **Compile-time (Static):** Method Overloading (same name, different parameters).
+- **Run-time (Dynamic):** Method Overriding (child class overrides parent class method).`;
+      actionChips = ["Run OOP Code", "Practice Mock Interview", "Compare Languages"];
+    } else if (lowerPrompt.includes("dbms") || lowerPrompt.includes("sql") || lowerPrompt.includes("mongodb") || lowerPrompt.includes("postgresql") || lowerPrompt.includes("acid") || lowerPrompt.includes("index") || lowerPrompt.includes("join") || lowerPrompt.includes("database")) {
+      reply = `### 🗄️ Database Management Systems & SQL vs NoSQL
+
+**1. ACID Properties:**
+- **Atomicity:** Entire transaction succeeds or rolls back completely.
+- **Consistency:** Database transitions from one valid state to another.
+- **Isolation:** Concurrent transactions execute without interfering.
+- **Durability:** Once committed, data persists even in case of power failure.
+
+**2. SQL vs NoSQL Database Selection:**
+- **SQL (e.g., PostgreSQL, MySQL):** Structured, schema-based, supports complex JOINs, ACID-compliant. Ideal for transactional, financial apps.
+- **NoSQL (e.g., MongoDB, Redis):** Schema-less, document/key-value store, horizontally scalable. Ideal for high-throughput, unstructured data.
+
+**3. Database Indexing:**
+- Indexes speed up data retrieval queries (using B-Trees or B+ Trees) at the cost of slower writes (INSERT/UPDATE needs index rebuilding).`;
+      actionChips = ["Check MongoDB Schema", "Compare DB Engines", "Run SQL Sandbox"];
+    } else if (lowerPrompt.includes("dsa") || lowerPrompt.includes("complexity") || lowerPrompt.includes("binary search") || lowerPrompt.includes("graph") || lowerPrompt.includes("sorting") || lowerPrompt.includes("dynamic programming") || lowerPrompt.includes("dp")) {
+      reply = `### 🚀 Data Structures & Algorithmic Blueprint
+
+**1. Time Complexity Cheat Sheet:**
+- **O(1) [Constant]:** Hash map lookup, array index lookup.
+- **O(log N) [Logarithmic]:** Binary Search.
+- **O(N) [Linear]:** Single loop, array traversal.
+- **O(N log N) [Linearithmic]:** QuickSort, MergeSort.
+- **O(N²) [Quadratic]:** Nested loops (Bubble sort).
+
+**2. Core Solving Patterns:**
+- **Two Pointers:** Used for sorted array searching (e.g., target sum).
+- **Sliding Window:** Subarray problems (maximum sum of K elements).
+- **DFS/BFS:** Graph traversal. BFS uses Queue (Shortest path), DFS uses Stack/Recursion (Path existence).`;
+      actionChips = ["Run Code Sandbox", "Check DSA Certification", "Mock Interview Mode"];
+    } else if (lowerPrompt.includes("placement") || lowerPrompt.includes("job") || lowerPrompt.includes("internship") || lowerPrompt.includes("off-campus") || lowerPrompt.includes("recruit") || lowerPrompt.includes("prepare") || lowerPrompt.includes("interview")) {
+      reply = `### 💼 Off-Campus Placements Emergency Action Plan
+
+If you are preparing for immediate off-campus placements:
+
+**1. Daily Routine:**
+- Spend **2 hours** solving 2-3 Medium LeetCode problems (focus on Arrays, Hashing, Trees).
+- Spend **1 hour** building/tuning 1 solid MERN stack project (like HireHub!).
+- Spend **30 mins** practicing quantitative aptitude on IndiaBIX.
+
+**2. Resume & Applying:**
+- Keep a 1-page clean resume. Highlight your LeetCode problem count.
+- Create accounts on **Instahyre** and **Cuvette** to apply directly to tech startups.
+- Find college seniors on LinkedIn and politely ask for referrals.`;
+      actionChips = ["Open Resume Builder", "Salary Predictor", "Check Skill Certifications"];
     } else {
-      reply = `### 🚀 HireHub AI Career Assistant Advice
+      reply = `### 🤖 HireHub AI Copilot Intelligence
 
-Regarding your question **"${prompt}"**:
+I have analyzed your query: **"${prompt}"**
 
-1. **Strategic Focus**: Focus on demonstrating measurable impact, clean architectural patterns, and strong domain ownership.
-2. **Key Skills to Emphasize**: Ensure you highlight proficiency in your core stack, system reliability, and continuous delivery.
-3. **Interview Readiness**: Structure your answers with clear technical trade-offs (e.g., why chose MongoDB over PostgreSQL, or why use SSR with Next.js).
+Here is the detailed, step-by-step career and technical guidance:
 
-Let me know if you would like me to draft a specific code snippet, mock answer, or salary negotiation script!`;
+1. **Core Concept:** To approach this, you must understand the underlying system or design constraints. Ensure your solution is modular and handles edge cases gracefully.
+2. **Implementation Strategy:** 
+   - Break the problem down into smaller subsystems or logical units.
+   - Prioritize readability, clean OOP patterns, and write unit tests.
+   - Implement proper error-handling (try-catch, status codes).
+3. **Interview Presentation:** When explaining this to an interviewer, start with the high-level architecture, discuss trade-offs (e.g., Time vs Space complexity), and then present the final optimal code.
+
+*Feel free to ask for a specific code template, a counter-offer script, or a mock question!*`;
       actionChips = ["STAR Method Guide", "Salary Negotiation Script", "Resume ATS Audit", "Practice Mock Interview"];
     }
 
@@ -511,74 +716,92 @@ const getCareerRoadmaps = async (req, res) => {
 // Real-Time Notification Center Feed
 const getNotifications = async (req, res) => {
   try {
-    const user = req.user;
-    const isRecruiter = user?.role === "recruiter";
+    const dbNotifs = await Notification.find({ recipient: req.user.id })
+      .sort({ createdAt: -1 });
 
-    let notifications = [];
+    if (dbNotifs && dbNotifs.length > 0) {
+      return res.json(dbNotifs);
+    }
 
+    const isRecruiter = req.user?.role === "recruiter";
+    let mock = [];
     if (isRecruiter) {
-      notifications = [
+      mock = [
         {
-          id: "notif-r1",
+          _id: "notif-r1",
           title: "New 96% AI Precision Match Candidate",
           desc: "Aarav Sharma applied for Senior Full Stack Architect role.",
-          time: "5m ago",
+          createdAt: new Date(Date.now() - 5 * 60000),
           type: "candidate_match",
           link: "/recruiter/dashboard",
           read: false,
         },
         {
-          id: "notif-r2",
+          _id: "notif-r2",
           title: "Interview Accepted",
           desc: "Candidate confirmed Technical Interview on Google Calendar.",
-          time: "1h ago",
+          createdAt: new Date(Date.now() - 60 * 60000),
           type: "interview",
           link: "/recruiter/dashboard",
           read: false,
         },
         {
-          id: "notif-r3",
+          _id: "notif-r3",
           title: "Job Listing Trending",
           desc: "Your listing 'Senior React Lead' received 24 new views today.",
-          time: "3h ago",
+          createdAt: new Date(Date.now() - 180 * 60000),
           type: "job_alert",
           link: "/recruiter/dashboard",
           read: true,
         },
       ];
     } else {
-      notifications = [
+      mock = [
         {
-          id: "notif-c1",
+          _id: "notif-c1",
           title: "Interview Invitation Scheduled",
           desc: "Google Meet technical round scheduled for tomorrow at 3:00 PM.",
-          time: "10m ago",
+          createdAt: new Date(Date.now() - 10 * 60000),
           type: "interview",
-          link: "/candidate/applications",
+          link: "/candidate/dashboard",
           read: false,
         },
         {
-          id: "notif-c2",
+          _id: "notif-c2",
           title: "AI Skill Match Alert",
           desc: "New job posting matches 94% of your TypeScript & React skills.",
-          time: "45m ago",
+          createdAt: new Date(Date.now() - 45 * 60000),
           type: "job_match",
-          link: "/",
+          link: "/jobs",
           read: false,
         },
         {
-          id: "notif-c3",
+          _id: "notif-c3",
           title: "AI Skill Badge Verified",
           desc: "You achieved Master Certified status on Full Stack MERN track!",
-          time: "2h ago",
+          createdAt: new Date(Date.now() - 120 * 60000),
           type: "badge",
-          link: "/candidate/certification",
+          link: "/candidate/dashboard",
           read: true,
         },
       ];
     }
 
-    res.json(notifications);
+    res.json(mock);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+const markNotificationRead = async (req, res) => {
+  try {
+    const notif = await Notification.findOneAndUpdate(
+      { _id: req.params.id, recipient: req.user.id },
+      { read: true },
+      { new: true }
+    );
+    if (!notif) return res.status(404).json({ message: "Notification not found" });
+    res.json(notif);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -1013,6 +1236,7 @@ module.exports = {
   analyzeLiveInterview,
   getCareerRoadmaps,
   getNotifications,
+  markNotificationRead,
   analyzeJobOffer,
   auditResumeContent,
   evaluateSystemArchitecture,

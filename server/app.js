@@ -26,6 +26,14 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 300 });
 app.use("/api", limiter);
 
+app.get("/", (req, res) => {
+  res.json({
+    message: "HireHub AI Recruitment Backend API is running successfully!",
+    status: "healthy",
+    version: "1.0.0"
+  });
+});
+
 app.get("/api/health", (req, res) => res.json({ status: "ok" }));
 
 app.use("/api/auth", authRoutes);

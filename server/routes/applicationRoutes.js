@@ -1,12 +1,13 @@
 const express = require("express");
 const {
-  applyToJob, getMyApplications, getApplicantsForJob, updateApplicationStatus,
+  applyToJob, getMyApplications, getApplicantsForJob, updateApplicationStatus, getRecruiterInterviews,
 } = require("../controllers/applicationController");
 const { protect, authorize } = require("../middleware/auth");
 
 const router = express.Router();
 router.post("/:jobId/apply", protect, authorize("candidate"), applyToJob);
 router.get("/mine", protect, authorize("candidate"), getMyApplications);
+router.get("/recruiter/interviews", protect, authorize("recruiter"), getRecruiterInterviews);
 router.get("/job/:jobId", protect, authorize("recruiter"), getApplicantsForJob);
 router.put("/:id/status", protect, authorize("recruiter"), updateApplicationStatus);
 

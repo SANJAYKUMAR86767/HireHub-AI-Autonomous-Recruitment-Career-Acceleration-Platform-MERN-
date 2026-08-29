@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Building, MapPin, DollarSign, ArrowUpRight, ExternalLink, Globe, Sparkles } from "lucide-react";
+import { Building, MapPin, DollarSign, ArrowUpRight, ExternalLink, Globe, Sparkles, Bookmark } from "lucide-react";
+import api from "../services/api";
 
 export default function JobCard({ job }) {
   // Generate real-time live simulation links for top global job portals (LinkedIn, Naukri, Google, Internshala)
@@ -35,13 +36,30 @@ export default function JobCard({ job }) {
               </div>
             </div>
           </div>
-          <Link
-            to={`/jobs/${job._id}`}
-            className="p-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-indigo-600 hover:text-white transition-colors"
-            title="View Job Details"
-          >
-            <ArrowUpRight className="w-4 h-4" />
-          </Link>
+          <div className="flex items-center space-x-1 shrink-0">
+            <button
+              onClick={async (e) => {
+                e.preventDefault();
+                try {
+                  const res = await api.post(`/auth/save-job/${job._id}`);
+                  alert(res.data.message);
+                } catch (err) {
+                  alert(err.response?.data?.message || "Please log in as a candidate to save jobs!");
+                }
+              }}
+              className="p-2 rounded-xl bg-slate-800 text-slate-400 hover:text-white hover:bg-indigo-600 transition-colors"
+              title="Bookmark Job"
+            >
+              <Bookmark className="w-3.5 h-3.5" />
+            </button>
+            <Link
+              to={`/jobs/${job._id}`}
+              className="p-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-indigo-600 hover:text-white transition-colors"
+              title="View Job Details"
+            >
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
         </div>
 
         {/* Badges */}

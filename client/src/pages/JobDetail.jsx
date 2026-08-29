@@ -3,7 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import api from "../services/api";
 import { useAuth } from "../context/AuthContext";
 import AiMatchCard from "../components/AiMatchCard";
-import { MapPin, Briefcase, DollarSign, Building, Clock, CheckCircle2, Send, ExternalLink, Globe, Sparkles, Share2 } from "lucide-react";
+import { MapPin, Briefcase, DollarSign, Building, Clock, CheckCircle2, Send, ExternalLink, Globe, Sparkles, Share2, Bookmark } from "lucide-react";
 
 export default function JobDetail() {
   const { id } = useParams();
@@ -97,25 +97,42 @@ We are seeking an exceptional Senior Full Stack Distributed Architect to join ou
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center gap-3">
+          <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
             {user?.role === "candidate" && (
-              <button
-                disabled={applied || applying}
-                onClick={apply}
-                className="w-full sm:w-auto bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 disabled:opacity-50 text-white font-extrabold px-8 py-3.5 rounded-2xl text-xs transition-all shadow-xl shadow-indigo-500/25 flex items-center justify-center space-x-2"
-              >
-                {applied ? (
-                  <>
-                    <CheckCircle2 className="w-4 h-4 text-emerald-300" />
-                    <span>Application Submitted</span>
-                  </>
-                ) : (
-                  <>
-                    <Send className="w-4 h-4" />
-                    <span>{applying ? "Submitting..." : "Apply Now"}</span>
-                  </>
-                )}
-              </button>
+              <div className="flex items-center gap-2 w-full sm:w-auto">
+                <button
+                  type="button"
+                  onClick={async () => {
+                    try {
+                      const res = await api.post(`/auth/save-job/${job._id}`);
+                      alert(res.data.message);
+                    } catch (err) {
+                      alert(err.response?.data?.message || "Could not save job");
+                    }
+                  }}
+                  className="bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-750 p-3.5 rounded-2xl transition shrink-0"
+                  title="Bookmark Job"
+                >
+                  <Bookmark className="w-4 h-4" />
+                </button>
+                <button
+                  disabled={applied || applying}
+                  onClick={apply}
+                  className="flex-1 sm:flex-initial bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 disabled:opacity-50 text-white font-extrabold px-8 py-3.5 rounded-2xl text-xs transition-all shadow-xl shadow-indigo-500/25 flex items-center justify-center space-x-2"
+                >
+                  {applied ? (
+                    <>
+                      <CheckCircle2 className="w-4 h-4 text-emerald-300" />
+                      <span>Application Submitted</span>
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4" />
+                      <span>{applying ? "Submitting..." : "Apply Now"}</span>
+                    </>
+                  )}
+                </button>
+              </div>
             )}
           </div>
         </div>

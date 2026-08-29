@@ -103,36 +103,104 @@ export default function AiCodingSandbox() {
     setAiAnalysis(null);
 
     setTimeout(() => {
-      let isSuccess = true;
       let logs = [];
+      let allPassed = true;
 
       try {
+        // Extract function exports from code input
+        const userCodeWrapped = `
+          ${code}
+          return {
+            twoSum: typeof twoSum !== 'undefined' ? twoSum : null,
+            isValid: typeof isValid !== 'undefined' ? isValid : null,
+            LRUCache: typeof LRUCache !== 'undefined' ? LRUCache : null
+          };
+        `;
+        
+        const executeCode = new Function(userCodeWrapped);
+        const userExports = executeCode();
+        
         if (selectedProblem.id === "two-sum") {
-          logs.push("Running Test Case 1: nums = [2,7,11,15], target = 9 ➔ Passed! Output: [0, 1]");
-          logs.push("Running Test Case 2: nums = [3,2,4], target = 6 ➔ Passed! Output: [1, 2]");
+          const fn = userExports.twoSum;
+          if (!fn) throw new Error("Function 'twoSum' is not defined. Please check your function name.");
+          
+          // Test Case 1
+          const out1 = fn([2,7,11,15], 9);
+          const passed1 = Array.isArray(out1) && ((out1[0] === 0 && out1[1] === 1) || (out1[0] === 1 && out1[1] === 0));
+          logs.push(`Test Case 1: nums = [2,7,11,15], target = 9 ➔ ${passed1 ? "Passed ✓" : "Failed ✗"} (Output: ${JSON.stringify(out1)})`);
+          if (!passed1) allPassed = false;
+
+          // Test Case 2
+          const out2 = fn([3,2,4], 6);
+          const passed2 = Array.isArray(out2) && ((out2[0] === 1 && out2[1] === 2) || (out2[0] === 2 && out2[1] === 1));
+          logs.push(`Test Case 2: nums = [3,2,4], target = 6 ➔ ${passed2 ? "Passed ✓" : "Failed ✗"} (Output: ${JSON.stringify(out2)})`);
+          if (!passed2) allPassed = false;
+          
         } else if (selectedProblem.id === "valid-parentheses") {
-          logs.push("Running Test Case 1: s = '()[]{}' ➔ Passed! Output: true");
-          logs.push("Running Test Case 2: s = '(]' ➔ Passed! Output: false");
-        } else {
-          logs.push("Running Test Case 1: LRUCache(2) put/get ➔ Passed! Output: 1");
-          logs.push("Running Test Case 2: LRUCache eviction ➔ Passed! Output: -1");
+          const fn = userExports.isValid;
+          if (!fn) throw new Error("Function 'isValid' is not defined. Please check your function name.");
+          
+          // Test Case 1
+          const out1 = fn("()[]{}");
+          const passed1 = out1 === true;
+          logs.push(`Test Case 1: s = '()[]{}' ➔ ${passed1 ? "Passed ✓" : "Failed ✗"} (Output: ${out1})`);
+          if (!passed1) allPassed = false;
+
+          // Test Case 2
+          const out2 = fn("(]");
+          const passed2 = out2 === false;
+          logs.push(`Test Case 2: s = '(]' ➔ ${passed2 ? "Passed ✓" : "Failed ✗"} (Output: ${out2})`);
+          if (!passed2) allPassed = false;
+          
+        } else if (selectedProblem.id === "lru-cache") {
+          const Cls = userExports.LRUCache;
+          if (!Cls) throw new Error("Class 'LRUCache' is not defined. Please check your class name.");
+          
+          const cache = new Cls(2);
+          cache.put(1, 1);
+          cache.put(2, 2);
+          const g1 = cache.get(1);
+          const passed1 = g1 === 1;
+          logs.push(`Test Case 1: LRUCache(2) put(1,1), put(2,2), get(1) ➔ ${passed1 ? "Passed ✓" : "Failed ✗"} (Output: ${g1})`);
+          if (!passed1) allPassed = false;
+
+          cache.put(3, 3);
+          const g2 = cache.get(2);
+          const passed2 = g2 === -1;
+          logs.push(`Test Case 2: put(3,3), get(2) (should be evicted) ➔ ${passed2 ? "Passed ✓" : "Failed ✗"} (Output: ${g2})`);
+          if (!passed2) allPassed = false;
         }
 
-        setOutput({ success: true, logs });
+        setOutput({ success: allPassed, logs });
 
         // AI Complexity & Optimization Feedback
-        setAiAnalysis({
-          timeComplexity: "O(N) Optimal Time Complexity",
-          spaceComplexity: "O(N) Optimal Space Complexity",
-          verdict: "Accepted — All Test Cases Passed!",
-          recommendation: "Excellent algorithm! Hash map lookup reduces time complexity from O(N²) to O(N). Code is clean and production-ready.",
-        });
+        if (allPassed) {
+          setAiAnalysis({
+            timeComplexity: selectedProblem.id === "lru-cache" ? "O(1) Optimal" : "O(N) Optimal",
+            spaceComplexity: "O(N) Optimal",
+            verdict: "Accepted — All Test Cases Passed!",
+            recommendation: "Excellent algorithm! Your solution is fully correct, optimal, and has passed all local test gates. Variable scope and memory consumption are minimal.",
+          });
+        } else {
+          setAiAnalysis({
+            timeComplexity: "Unable to evaluate",
+            spaceComplexity: "Unable to evaluate",
+            verdict: "Failed — Test Case Mismatch",
+            recommendation: "Some of your test cases returned incorrect outputs. Please verify your logic, look out for edge cases, or check if you are mutating variables incorrectly.",
+          });
+        }
       } catch (err) {
-        setOutput({ success: false, logs: [err.message] });
+        setOutput({ success: false, logs: [`Runtime/Syntax Error: ${err.message}`] });
+        setAiAnalysis({
+          timeComplexity: "Error",
+          spaceComplexity: "Error",
+          verdict: "Compilation Error",
+          recommendation: `Your code failed to compile or run. Error detail: ${err.message}. Make sure all brackets are closed and function names match standard starter code.`,
+        });
       } finally {
         setExecuting(false);
       }
-    }, 1200);
+    }, 1000);
   };
 
   return (
@@ -145,7 +213,7 @@ export default function AiCodingSandbox() {
         </Link>
         <div className="flex items-center space-x-2 text-indigo-400 text-xs font-bold uppercase tracking-wider bg-indigo-500/10 px-3 py-1 rounded-full border border-indigo-500/20">
           <Sparkles className="w-4 h-4 text-amber-400 animate-pulse" />
-          <span>AI Live Technical Coding Sandbox & Evaluator</span>
+          <span>HireHub AI Coding Sandbox & Evaluator</span>
         </div>
       </div>
 

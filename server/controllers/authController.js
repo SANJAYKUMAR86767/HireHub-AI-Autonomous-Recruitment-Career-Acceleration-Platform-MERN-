@@ -111,4 +111,84 @@ const getMe = async (req, res) => {
   res.json(memUser);
 };
 
-module.exports = { register, login, getMe };
+const resetPassword = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ message: "Email and password are required" });
+    }
+
+    const hashed = await bcrypt.hash(password, 10);
+    const user = await User.findOneAndUpdate(
+      { email: email.toLowerCase().trim() },
+      { password: hashed },
+      { new: true }
+    );
+
+    if (!user) {
+      const memUser = localUserStore.find((u) => u.email === email.toLowerCase().trim());
+      if (memUser) {
+        memUser.password = hashed;
+        return res.json({ message: "Password updated successfully in-memory!" });
+      }
+      return res.status(404).json({ message: "User not found with this email" });
+    }
+
+    res.json({ message: "Password reset successfully!" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+const toggleSaveJob = async (req, res) => {
+  try {
+    const { jobId } = req.params;
+    const user = await User.findById(req.user.id);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    const index = user.savedJobs.indexOf(jobId);
+    if (index === -1) {
+      user.savedJobs.push(jobId);
+      await user.save();
+      return res.json({ message: "Job saved successfully", saved: true });
+    } else {
+      user.savedJobs.splice(index, 1);
+      await user.save();
+      return res.json({ message: "Job removed from saved list", saved: false });
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+const getSavedJobs = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).populate("savedJobs");
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.json(user.savedJobs || []);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+const updateProfile = async (req, res) => {
+  try {
+    const { skills, location, experience, education, name, companyName } = req.body;
+    const user = await User.findById(req.user.id);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    if (name) user.name = name;
+    if (skills) user.skills = skills;
+    if (location) user.location = location;
+    if (experience) user.experience = experience;
+    if (education) user.education = education;
+    if (companyName) user.companyName = companyName;
+
+    await user.save();
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+module.exports = { register, login, getMe, resetPassword, toggleSaveJob, getSavedJobs, updateProfile };
