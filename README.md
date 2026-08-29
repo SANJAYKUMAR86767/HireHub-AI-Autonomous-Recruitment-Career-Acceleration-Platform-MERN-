@@ -21,8 +21,27 @@
 🌐 **Live Production Link**: [https://hire-hub-ai-autonomous-recruitment.vercel.app/](https://hire-hub-ai-autonomous-recruitment.vercel.app/)
 
 [Explore Features](#-key-workspaces--ai-studios) • [Technologies & Languages Used](#-complete-technologies--languages-used) • [Architecture](#-system-architecture) • [Getting Started](#-getting-started) • [Deployment Guide](#-deployment-guide)
-
 </div>
+
+---
+
+## 📸 Platform Previews & Screenshots
+
+### 👤 Candidate Job Tracker Dashboard
+High-fidelity candidate command center showing applications pipeline, upcoming live interviews, and recommended job roles matching their tech stack.
+![Candidate Dashboard](screenshots/media_1788034796165.png)
+
+### 🏢 Recruiter Studio Control Panel
+Dashboard managing jobs pipeline analytics, applicant counts, quick action to Talent Radar, and interview planners.
+![Recruiter Dashboard](screenshots/media_1788034813126.png)
+
+### 🔐 1-Click Zero-Friction Demo Login
+No credentials needed: switch between Candidate, Recruiter, and Admin suites instantly.
+![Demo Logins](screenshots/media_1788034847614.png)
+
+### 💬 System Architecture & Telemetry Indicators
+Mockup representing multi-platform direct crawls, real-time message rooms, and interview STAR story coaches.
+![System Highlights](screenshots/media_1788017164032.png)
 
 ---
 
